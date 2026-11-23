@@ -209,28 +209,128 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <!-- ============================ LECCIÓN 2 ============================ -->
 <section class="lesson" id="l2" style="--acc:var(--c2)" data-mod="m2">
 <header><span class="tag">Lección 2 · Módulo 4.2</span><h2>Del triángulo al círculo: funciones de cualquier ángulo</h2></header>
-<div class="box bridge"><b class="t">Conexión</b>En la lección 1 el seno era "opuesto sobre hipotenusa", y solo servía para ángulos agudos. Ahora vamos a poner ese mismo triángulo dentro de un círculo de radio 1. Vas a ver que el seno y el coseno se convierten en algo muy simple: <b>las coordenadas de un punto</b>. Y eso funciona para cualquier ángulo.</div>
+<div class="box bridge"><b class="t">Conexión</b>En la lección 1 aprendiste que \(\operatorname{sen}\theta=\frac{op}{hip}\). Esa definición necesita un triángulo rectángulo, y un triángulo rectángulo solo tiene ángulos agudos (entre 0° y 90°). En esta lección vamos a ir <b>muy despacio</b>, en el mismo orden que tus diapositivas, para llegar a una definición de seno y coseno que sirva para <b>cualquier</b> ángulo.</div>
 
-<h3 id="l2-pos">Posición normal</h3>
-<p>Para comparar ángulos, los dibujamos todos igual en el plano cartesiano: el vértice en el origen \((0,0)\) y el lado inicial sobre el eje \(x\) positivo (hacia la derecha). Esto se llama <b>posición normal</b>. Así, lo único que distingue un ángulo de otro es <b>dónde termina</b> el lado terminal.</p>
+<h3 id="l2-prob">El problema: ¿qué es sen 150°?</h3>
+<p>Intenta dibujar un triángulo rectángulo con un ángulo de 150°. No se puede: los tres ángulos de un triángulo suman 180°, y si uno ya vale 90° y otro 150°, nos pasamos (90 + 150 = 240). Así que la definición de la lección 1 no sirve para 150°.</p>
+<p>Lo mismo pasa con 200°, con −45°, o con 7 radianes. Pero en física, ingeniería y en el resto del curso necesitamos el seno de esos ángulos. La solución de las diapositivas tiene tres pasos, y los vamos a ver uno por uno:</p>
+<ol class="steps"><li>Entender que <b>cualquier número real</b> puede ser un ángulo.</li>
+<li>Dibujar todos los ángulos de la misma manera: en <b>posición normal</b>.</li>
+<li>Definir seno y coseno con un <b>punto en un círculo</b>, en vez de con un triángulo.</li></ol>
 
-<h3 id="l2-circ">El círculo unitario: el truco que lo cambia todo</h3>
-<p>Dibuja un círculo de radio 1 con centro en el origen (el <b>círculo unitario</b>). El lado terminal de \(\theta\) corta ese círculo en un punto \(P=(x,y)\). Baja una línea vertical desde \(P\) hasta el eje \(x\): se forma un triángulo rectángulo con</p>
-<ul><li>hipotenusa \(=1\) (el radio),</li><li>cateto adyacente \(=x\) (horizontal),</li><li>cateto opuesto \(=y\) (vertical).</li></ul>
-<p>Ahora usa las definiciones de la lección 1:</p>
-<div class="formula">\[\cos\theta = \frac{ady}{hip} = \frac{x}{1} = x \qquad\qquad \operatorname{sen}\theta = \frac{op}{hip} = \frac{y}{1} = y\]</div>
-<div class="box key"><b class="t">La idea central del capítulo</b>\(P = (\cos\theta,\ \operatorname{sen}\theta)\). El <b class="c1">coseno es la coordenada x</b> (qué tan a la derecha o izquierda está el punto) y el <b class="c2">seno es la coordenada y</b> (qué tan arriba o abajo).</div>
-<div class="box why"><b class="t">¿Por qué esto resuelve el problema?</b>Para un ángulo de 150°, el punto \(P\) sigue existiendo en el círculo: simplemente está a la izquierda (su \(x\) es negativa). Así, ahora <b>definimos</b> \(\cos\theta=x\) y \(\operatorname{sen}\theta=y\) para cualquier ángulo. Para ángulos agudos coincide con la lección 1; para los demás, es la extensión natural.</div>
-<div class="widget" id="w-uc"><b>Pruébalo:</b> mueve el ángulo y mira el punto \(P\).
+<h3 id="l2-real">Paso 1: cualquier número real es un ángulo</h3>
+<p>Tu diapositiva de introducción dice: <i>"Cualquier número real representa la medida de un ángulo en radianes."</i> ¿Qué significa eso?</p>
+<p>Recuerda de la lección 1 que un ángulo es un <b>giro</b>, y que en radianes una vuelta completa mide \(2\pi\approx6{,}28\). Entonces, si te dan un número cualquiera \(t\), lo lees como "gira \(t\) radianes":</p>
+<table><tr><th>Número</th><th>Qué giro es</th><th>En grados (aprox.)</th></tr>
+<tr><td>\(1\)</td><td>un poco menos de un sexto de vuelta</td><td>\(57^\circ\)</td></tr>
+<tr><td>\(\frac{\pi}{2}\approx1{,}57\)</td><td>un cuarto de vuelta</td><td>\(90^\circ\)</td></tr>
+<tr><td>\(3\)</td><td>casi media vuelta</td><td>\(172^\circ\)</td></tr>
+<tr><td>\(\pi\approx3{,}14\)</td><td>media vuelta exacta</td><td>\(180^\circ\)</td></tr>
+<tr><td>\(7\)</td><td>una vuelta completa (6,28) y un poquito más</td><td>\(401^\circ\)</td></tr>
+<tr><td>\(-2\)</td><td>2 radianes en sentido del reloj</td><td>\(-115^\circ\)</td></tr></table>
+<div class="box why"><b class="t">¿Por qué esto importa?</b>Una <b>función</b> recibe un número y devuelve otro. Si cualquier número real es un ángulo, entonces podemos hablar de \(\operatorname{sen}(1)\), \(\operatorname{sen}(7)\) o \(\operatorname{sen}(-2)\). Por eso el módulo se llama "funciones trigonométricas": ahora el seno es una función que acepta cualquier número.</div>
+<p>Para que eso funcione, como dice la diapositiva, <i>"es necesario conocer \(\operatorname{sen}\theta\) y \(\cos\theta\) de cualquier ángulo"</i>. Las otras cuatro (tan, cot, sec, csc) las vamos a construir a partir de esas dos.</p>
+
+<h3 id="l2-plano">Repaso rápido: el plano cartesiano</h3>
+<p>Antes de dibujar ángulos, recordemos dónde los vamos a dibujar. El plano cartesiano tiene dos ejes que se cruzan en el <b>origen</b> \((0,0)\):</p>
+<figure><svg data-fig="plane" viewBox="0 0 360 300" width="360"></svg>
+<figcaption>Cada punto tiene coordenadas \((x, y)\): \(x\) dice cuánto va a la derecha (+) o a la izquierda (−); \(y\) dice cuánto sube (+) o baja (−).</figcaption></figure>
+<p>Los ejes dividen el plano en cuatro <b>cuadrantes</b>, numerados con números romanos <b>en sentido contrario al reloj</b>, empezando arriba a la derecha:</p>
+<ul><li><b>Cuadrante I</b> (arriba a la derecha): \(x>0,\ y>0\).</li><li><b>Cuadrante II</b> (arriba a la izquierda): \(x<0,\ y>0\).</li>
+<li><b>Cuadrante III</b> (abajo a la izquierda): \(x<0,\ y<0\).</li><li><b>Cuadrante IV</b> (abajo a la derecha): \(x>0,\ y<0\).</li></ul>
+<p>Guarda esta lista: más adelante, el signo del seno y del coseno va a salir exactamente de aquí.</p>
+
+<h3 id="l2-pos">Paso 2: ángulos en posición normal</h3>
+<p>La diapositiva dice: <i>"Un ángulo está en posición normal si está en el plano cartesiano con el vértice en el origen y su lado inicial en el eje positivo \(x\)."</i> Vamos parte por parte:</p>
+<ul><li><b>Vértice en el origen:</b> el punto donde "se clava" la manecilla que gira es el \((0,0)\).</li>
+<li><b>Lado inicial en el eje \(x\) positivo:</b> la manecilla siempre <b>empieza</b> apuntando hacia la derecha.</li>
+<li>Desde ahí <b>gira</b> lo que diga el ángulo. Donde se detiene queda el <b>lado terminal</b>.</li></ul>
+<div class="box why"><b class="t">¿Por qué todos igual?</b>Si cada uno dibujara los ángulos donde quisiera, no podríamos compararlos. Al empezar todos desde el mismo lugar (eje \(x\) positivo), lo único que diferencia a un ángulo de otro es <b>dónde termina</b>. Y ese "dónde termina" es lo que va a decidir el seno y el coseno.</div>
+<h4>Cómo dibujar un ángulo en posición normal (paso a paso)</h4>
+<ol class="steps"><li>Dibuja los ejes \(x\) y \(y\).</li><li>Dibuja el lado inicial: un rayo desde el origen hacia la derecha.</li>
+<li>Si el ángulo es <b>positivo</b>, gira en contra del reloj (hacia arriba primero). Si es <b>negativo</b>, gira a favor del reloj (hacia abajo primero).</li>
+<li>Usa los ejes como referencias: el eje \(y\) positivo está a \(90^\circ=\frac\pi2\), el eje \(x\) negativo a \(180^\circ=\pi\), el eje \(y\) negativo a \(270^\circ=\frac{3\pi}2\) y volver al inicio es \(360^\circ=2\pi\).</li>
+<li>Dibuja el lado terminal donde termina el giro y marca con una flecha curva el giro que hiciste.</li></ol>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px">
+<figure><svg data-fig="std" data-deg="60" viewBox="0 0 200 200"></svg><figcaption>\(60^\circ=\frac\pi3\): cuadrante I</figcaption></figure>
+<figure><svg data-fig="std" data-deg="150" viewBox="0 0 200 200"></svg><figcaption>\(150^\circ=\frac{5\pi}6\): pasó los 90°, cuadrante II</figcaption></figure>
+<figure><svg data-fig="std" data-deg="240" viewBox="0 0 200 200"></svg><figcaption>\(240^\circ=\frac{4\pi}3\): pasó los 180°, cuadrante III</figcaption></figure>
+<figure><svg data-fig="std" data-deg="-45" viewBox="0 0 200 200"></svg><figcaption>\(-45^\circ=-\frac\pi4\): gira hacia abajo, cuadrante IV</figcaption></figure></div>
+<div class="box key"><b class="t">Cómo saber el cuadrante rápido</b>Pasa el ángulo a grados (atajo de la lección 1: si el denominador es 6, cada \(\pi\) vale 30°; si es 4, 45°; si es 3, 60°). Luego: entre 0° y 90° → I; entre 90° y 180° → II; entre 180° y 270° → III; entre 270° y 360° → IV. Ejemplo: \(\frac{7\pi}6=7\cdot30^\circ=210^\circ\), está entre 180° y 270°: cuadrante III.</div>
+<details class="check"><summary>Compruébalo: ¿en qué cuadrante termina \(\frac{3\pi}4\)? ¿Y \(\frac{5\pi}3\)?</summary><p>\(\frac{3\pi}4=3\cdot45^\circ=135^\circ\) → cuadrante II. \(\frac{5\pi}3=5\cdot60^\circ=300^\circ\) → cuadrante IV.</p></details>
+
+<h3 id="l2-circ">Paso 3: el círculo unitario</h3>
+<p>Ahora la idea clave. Dibuja un círculo con centro en el origen y <b>radio 1</b>. Se llama <b>círculo unitario</b> ("unitario" porque su radio es 1). Todos sus puntos están a distancia exactamente 1 del origen. Por ejemplo, los cuatro puntos donde cruza los ejes son \((1,0)\), \((0,1)\), \((-1,0)\) y \((0,-1)\).</p>
+<p>Si dibujas un ángulo \(\theta\) en posición normal, su lado terminal sale del origen y, tarde o temprano, <b>choca con el círculo</b> en un punto. Llamemos a ese punto \(P=(x,y)\). Cada ángulo tiene su propio punto \(P\).</p>
+
+<h4>Primero, con un ángulo agudo (lo que ya conoces)</h4>
+<p>Toma \(\theta=60^\circ\). Desde \(P\) baja una línea recta vertical hasta el eje \(x\). Mira la figura: se forma un <b>triángulo rectángulo</b>.</p>
+<figure><svg data-fig="tri" data-deg="60" viewBox="-40 0 400 300" width="320"></svg>
+<figcaption>El radio (de largo 1) es la hipotenusa. La parte horizontal mide \(x\) y la vertical mide \(y\).</figcaption></figure>
+<ul><li>La <b>hipotenusa</b> es el radio: mide \(1\).</li>
+<li>El cateto <b>adyacente</b> a \(\theta\) es el horizontal, que va del origen hasta debajo de \(P\): mide \(x\).</li>
+<li>El cateto <b>opuesto</b> a \(\theta\) es el vertical, desde el eje hasta \(P\): mide \(y\).</li></ul>
+<p>Ahora aplica las definiciones de la lección 1:</p>
+<div class="formula">\[\cos\theta=\frac{ady}{hip}=\frac{x}{1}=x\qquad\qquad\operatorname{sen}\theta=\frac{op}{hip}=\frac{y}{1}=y\]</div>
+<div class="box why"><b class="t">¿Por qué es tan útil que la hipotenusa sea 1?</b>Porque dividir entre 1 no cambia nada. Por eso, en el círculo unitario, el coseno <b>es</b> directamente la coordenada \(x\) y el seno <b>es</b> la coordenada \(y\). No hay que dividir nada: solo leer el punto.</div>
+<div class="ex"><div class="h">Ejemplo: el punto de \(60^\circ\)</div>
+<p>De la tabla de la lección 1: \(\cos60^\circ=\frac12\) y \(\operatorname{sen}60^\circ=\frac{\sqrt3}2\). Entonces el punto donde el lado terminal de 60° corta el círculo es \(P=\left(\frac12,\ \frac{\sqrt3}2\right)\approx(0{,}5;\ 0{,}87)\). Fíjate en la figura: está a la mitad del camino hacia la derecha y bastante arriba.</p></div>
+
+<h4>Ahora, la gran idea: usarlo como definición</h4>
+<p>Para ángulos agudos acabamos de comprobar que \(\cos\theta=x\) y \(\operatorname{sen}\theta=y\). Para ángulos que <b>no</b> son agudos, como 150°, no había definición. Así que tomamos esta propiedad y la convertimos en la definición para todos:</p>
+<div class="box key"><b class="t">Definición (para cualquier ángulo θ)</b>Si \(P=(x,y)\) es el punto donde el lado terminal de \(\theta\) corta el círculo unitario, entonces \[\cos\theta=x\qquad\operatorname{sen}\theta=y\qquad\text{es decir,}\qquad P=(\cos\theta,\ \operatorname{sen}\theta).\]</div>
+<div class="box why"><b class="t">¿Por qué es una buena definición?</b>Por dos razones. <b>Uno:</b> para los ángulos agudos da exactamente lo mismo que op/hip y ady/hip, así que no contradice nada de la lección 1. <b>Dos:</b> para cualquier otro ángulo el punto \(P\) siempre existe (todo lado terminal choca con el círculo), así que siempre hay seno y coseno.</div>
+
+<h4>Ejemplo con un ángulo que no es agudo: 150°</h4>
+<figure><svg data-fig="tri" data-deg="150" viewBox="-40 0 400 300" width="320"></svg>
+<figcaption>El punto de 150° es el reflejo del punto de 30°: mismas medidas, pero hacia la izquierda.</figcaption></figure>
+<ol class="steps"><li>Dibuja 150° en posición normal: pasa los 90° y se queda 30° antes de llegar a 180°.</li>
+<li>Su punto \(P\) está arriba a la izquierda (cuadrante II).</li>
+<li>Baja la línea vertical: se forma un triángulo con un ángulo de \(30^\circ\) junto al eje \(x\) negativo, hipotenusa 1, base \(\frac{\sqrt3}2\) y altura \(\frac12\) (lección 1).</li>
+<li>Pero el punto está a la <b>izquierda</b> del origen, así que su \(x\) es negativa: \(x=-\frac{\sqrt3}2\). Y está <b>arriba</b>, así que \(y=+\frac12\).</li>
+<li>Por la definición: \(\cos150^\circ=-\frac{\sqrt3}2\) y \(\operatorname{sen}150^\circ=\frac12\).</li></ol>
+<div class="box key"><b class="t">Lo que acabas de descubrir</b>El seno y el coseno ahora pueden ser <b>negativos</b>. El signo depende de hacia dónde quedó el punto: a la izquierda → coseno negativo; abajo → seno negativo. Por eso te pedí guardar la lista de cuadrantes.</div>
+<div class="widget" id="w-uc"><b>Pruébalo:</b> mueve el ángulo y mira cómo cambian \(x=\cos\theta\) (azul) y \(y=\operatorname{sen}\theta\) (naranja).
 <div class="grid"><canvas id="uc" width="600" height="600"></canvas>
 <div><input type="range" id="ucR" min="0" max="360" step="15" value="150" aria-label="ángulo"><div id="ucT"></div></div></div></div>
-<p>Las otras cuatro funciones se definen a partir de seno y coseno:</p>
-<div class="formula">\[\tan\theta=\frac{\operatorname{sen}\theta}{\cos\theta}\quad \cot\theta=\frac{\cos\theta}{\operatorname{sen}\theta}\quad \sec\theta=\frac1{\cos\theta}\quad \csc\theta=\frac1{\operatorname{sen}\theta}\]</div>
-<div class="box why"><b class="t">¿Por qué \(\tan = \frac{\operatorname{sen}}{\cos}\)?</b>\(\frac{\operatorname{sen}}{\cos}=\frac{op/hip}{ady/hip}=\frac{op}{ady}\): la hipotenusa se cancela y queda la tangente de la lección 1.</div>
-<div class="box warn"><b class="t">Cuidado</b>Algunas no existen para ciertos ángulos. En \(\theta=\frac\pi2\), \(\cos=0\), así que \(\tan\frac\pi2=\frac10\) no está definida.</div>
+
+<h4>Ángulos sobre los ejes</h4>
+<p>Algunos ángulos terminan justo sobre un eje y no forman triángulo, pero con la definición no hay problema: solo leemos el punto.</p>
+<table><tr><th>θ</th><th>Dónde termina</th><th>Punto P</th><th>cos θ = x</th><th>sen θ = y</th></tr>
+<tr><td>\(0\)</td><td>eje x positivo (derecha)</td><td>\((1,0)\)</td><td>1</td><td>0</td></tr>
+<tr><td>\(\frac\pi2\)</td><td>eje y positivo (arriba)</td><td>\((0,1)\)</td><td>0</td><td>1</td></tr>
+<tr><td>\(\pi\)</td><td>eje x negativo (izquierda)</td><td>\((-1,0)\)</td><td>−1</td><td>0</td></tr>
+<tr><td>\(\frac{3\pi}2\)</td><td>eje y negativo (abajo)</td><td>\((0,-1)\)</td><td>0</td><td>−1</td></tr></table>
+<details class="check"><summary>Compruébalo: ¿cuál es el punto \(P\) de \(\theta=\frac{2\pi}3\) (120°)? ¿Cuánto valen su seno y su coseno?</summary>
+<p>120° está 60° antes de 180°: es el reflejo del punto de 60° hacia la izquierda. \(P=\left(-\frac12,\ \frac{\sqrt3}2\right)\), así que \(\cos\frac{2\pi}3=-\frac12\) y \(\operatorname{sen}\frac{2\pi}3=\frac{\sqrt3}2\).</p></details>
+
+<h3 id="l2-otras">Las otras cuatro funciones</h3>
+<p>La diapositiva dice que las demás se definen a partir de seno y coseno:</p>
+<div class="formula">\[\tan\theta=\frac{\operatorname{sen}\theta}{\cos\theta}\qquad\cot\theta=\frac{\cos\theta}{\operatorname{sen}\theta}\qquad\sec\theta=\frac{1}{\cos\theta}\qquad\csc\theta=\frac{1}{\operatorname{sen}\theta}\]</div>
+<p>Vamos una por una, para ver de dónde sale cada fórmula:</p>
+<ul>
+<li><b>Tangente.</b> En la lección 1 era \(\frac{op}{ady}\). Si dividimos seno entre coseno: \(\frac{\operatorname{sen}\theta}{\cos\theta}=\frac{op/hip}{ady/hip}=\frac{op}{ady}\), porque la hipotenusa aparece arriba y abajo y se cancela. Así que \(\frac{\operatorname{sen}}{\cos}\) es la misma tangente de antes, pero escrita de una forma que sirve para cualquier ángulo. En el círculo: \(\tan\theta=\frac yx\).</li>
+<li><b>Cotangente.</b> Es la tangente volteada: \(\frac{ady}{op}=\frac{\cos\theta}{\operatorname{sen}\theta}=\frac xy\).</li>
+<li><b>Secante.</b> Era \(\frac{hip}{ady}\), el coseno volteado: \(\frac1{\cos\theta}=\frac1x\).</li>
+<li><b>Cosecante.</b> Era \(\frac{hip}{op}\), el seno volteado: \(\frac1{\operatorname{sen}\theta}=\frac1y\).</li></ul>
+<div class="box why"><b class="t">¿Por qué ponerlas en función de seno y coseno?</b>Porque seno y coseno ya existen para cualquier ángulo (son las coordenadas del punto). Si escribimos las otras cuatro usando solo seno y coseno, automáticamente también funcionan para cualquier ángulo. Basta conocer dos cosas, \(x\) y \(y\), para tener las seis.</div>
+<div class="ex"><div class="h">Ejemplo: las seis funciones de \(\theta=\frac\pi3\) (60°)</div>
+<ol class="steps"><li>Punto: \(P=\left(\frac12,\frac{\sqrt3}2\right)\), así que \(\cos\frac\pi3=\frac12\) y \(\operatorname{sen}\frac\pi3=\frac{\sqrt3}2\).</li>
+<li>\(\tan\frac\pi3=\frac{\sqrt3/2}{1/2}=\sqrt3\) (los "/2" se cancelan).</li>
+<li>\(\cot\frac\pi3=\frac{1/2}{\sqrt3/2}=\frac1{\sqrt3}=\frac{\sqrt3}3\).</li>
+<li>\(\sec\frac\pi3=\frac{1}{1/2}=2\) y \(\csc\frac\pi3=\frac{1}{\sqrt3/2}=\frac{2}{\sqrt3}=\frac{2\sqrt3}3\).</li></ol></div>
+
+<h3 id="l2-nodef">Cuando una función no existe</h3>
+<p>La diapositiva termina con un ejemplo importante: <i>\(\operatorname{sen}\frac\pi2=1\), \(\cos\frac\pi2=0\) y \(\tan\frac\pi2\) no está definida.</i> Veamos por qué:</p>
+<ol class="steps"><li>El ángulo \(\frac\pi2\) (90°) termina en el eje \(y\) positivo; su punto es \(P=(0,1)\).</li>
+<li>Entonces \(\cos\frac\pi2=x=0\) y \(\operatorname{sen}\frac\pi2=y=1\).</li>
+<li>\(\tan\frac\pi2=\frac{\operatorname{sen}}{\cos}=\frac10\). <b>No se puede dividir entre cero</b>, así que la tangente no existe ahí.</li></ol>
+<div class="box key"><b class="t">Regla general</b>Una función que tiene \(\cos\theta\) en el denominador (tangente y secante) no existe cuando \(\cos\theta=0\), o sea en \(\frac\pi2\) y \(\frac{3\pi}2\). Una que tiene \(\operatorname{sen}\theta\) en el denominador (cotangente y cosecante) no existe cuando \(\operatorname{sen}\theta=0\), o sea en \(0\) y \(\pi\). Por eso la diapositiva dice "cuando esto sea posible".</div>
+<details class="check"><summary>Compruébalo: ¿existe \(\cot\pi\)? ¿Y \(\sec\pi\)?</summary><p>\(P=(-1,0)\). \(\cot\pi=\frac{x}{y}=\frac{-1}{0}\) → no existe. \(\sec\pi=\frac1x=\frac1{-1}=-1\) → sí existe.</p></details>
 
 <h3 id="l2-cot">Ángulos coterminales: dar vueltas no cambia nada</h3>
-<p>\(\frac\pi3\) y \(\frac\pi3+2\pi=\frac{7\pi}3\) terminan en el mismo lugar: el segundo da una vuelta completa de más. Se llaman <b>coterminales</b>. En general, \(\theta\) y \(\theta + 2\pi k\) (con \(k\) entero: …, −2, −1, 0, 1, 2, …) son coterminales.</p>
+<p>La diapositiva dice: <i>"Dos ángulos en posición normal son coterminales si sus lados terminales coinciden."</i> Es decir, terminan apuntando exactamente al mismo lugar, aunque hayan girado distinto.</p>
+<p>Ejemplo: \(\frac\pi3\) (60°) y \(\frac\pi3+2\pi=\frac{7\pi}3\) (420°). El segundo da una vuelta completa (360°) y luego gira 60° más: termina en el mismo lugar que el primero. También \(\frac\pi3-2\pi=-\frac{5\pi}3\) termina ahí, dando una vuelta hacia atrás. En general, \(\theta\) y \(\theta+2\pi k\) (con \(k\) entero: …, −2, −1, 0, 1, 2, …) son coterminales.</p>
 <div class="box why"><b class="t">¿Por qué importa?</b>Si terminan en el mismo punto \(P\), tienen el mismo seno y coseno. Por eso las funciones trigonométricas <b>se repiten cada \(2\pi\)</b>. Esta repetición es la que dibuja las ondas de la lección 4 y la que da infinitas soluciones en la lección 5.</div>
 
 <h3 id="l2-cuad">Cuadrantes y signos</h3>
@@ -257,8 +357,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <div class="ex"><div class="h">Ejemplo: \(\theta\) en el cuadrante IV y \(\cos\theta=\frac{\sqrt3}3\). Hallar \(\tan\theta\).</div><ol class="steps">
 <li>Dibuja el triángulo del ángulo de referencia (lección 1): ady \(\sqrt3\), hip 3.</li><li>Pitágoras: op \(=\sqrt{9-3}=\sqrt6\).</li>
 <li>Valor: \(\frac{\sqrt6}{\sqrt3}=\sqrt2\).</li><li>Signo: en IV la tangente es negativa. \(\tan\theta=-\sqrt2\).</li></ol></div>
-<h4>Ángulos sobre los ejes (cuadrantales)</h4>
-<p>No forman triángulo, pero se leen directamente del punto: en \(0\) el punto es \((1,0)\); en \(\frac\pi2\), \((0,1)\); en \(\pi\), \((-1,0)\); en \(\frac{3\pi}2\), \((0,-1)\). Así \(\cos\pi = -1\), \(\operatorname{sen}\frac{3\pi}2=-1\), etc.</p>
+
 <details class="check"><summary>Compruébalo: \(\theta=\frac{7\pi}6\). ¿Cuadrante, \(\bar\theta\), seno y coseno?</summary><p>\(210^\circ\), cuadrante III, \(\bar\theta=\frac\pi6\). \(\operatorname{sen}=-\frac12\), \(\cos=-\frac{\sqrt3}2\) (en III ambos negativos).</p></details>
 <div class="box bridge"><b class="t">Hacia la lección 3</b>Ahora sabemos que \(P=(\cos\theta,\operatorname{sen}\theta)\) está en un círculo de radio 1. Pero un punto en ese círculo cumple una ecuación muy famosa… y esa ecuación nos va a regalar una relación entre seno y coseno que vale <b>siempre</b>. Eso es una identidad.</div>
 </section>
@@ -449,6 +548,63 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 </article></main>
 
 <script>
+
+// --- angle figures (SVG) ---
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (svg, tag, at, txt) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+  const arrowDef = (svg, id, col) => { const d = el(svg, 'defs', {}); const m = el(d, 'marker', { id, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' }); el(m, 'path', { d: 'M0,0 L10,5 L0,10 z', fill: col }); };
+  let n = 0;
+  document.querySelectorAll('svg[data-fig]').forEach(svg => {
+    const kind = svg.dataset.fig, id = 'ar' + (n++);
+    if (kind === 'plane') {
+      arrowDef(svg, id, '#5d6577'); const O = [180, 150];
+      el(svg, 'line', { x1: 15, y1: 150, x2: 345, y2: 150, stroke: '#5d6577', 'stroke-width': 2, 'marker-end': `url(#${id})` });
+      el(svg, 'line', { x1: 180, y1: 285, x2: 180, y2: 15, stroke: '#5d6577', 'stroke-width': 2, 'marker-end': `url(#${id})` });
+      el(svg, 'text', { x: 340, y: 140, 'font-size': 16, 'font-family': 'system-ui' }, 'x'); el(svg, 'text', { x: 188, y: 22, 'font-size': 16, 'font-family': 'system-ui' }, 'y');
+      [['I', 320, 45, '#1d78b8'], ['II', 40, 45, '#c8641a'], ['III', 45, 280, '#2f8f4e'], ['IV', 320, 280, '#7a4fc9']].forEach(([t, x, y, c]) => el(svg, 'text', { x, y, 'font-size': 26, 'font-weight': 700, fill: c, 'font-family': 'system-ui', 'text-anchor': 'middle' }, t));
+      [['(2, 1)', 2, 1], ['(−2, 1)', -2, 1], ['(−1, −2)', -1, -2], ['(2, −1)', 2, -1]].forEach(([t, x, y]) => { const px = 180 + x * 45, py = 150 - y * 45;
+        el(svg, 'circle', { cx: px, cy: py, r: 5, fill: '#1f2430' }); el(svg, 'text', { x: px + (x > 0 ? 8 : -8), y: py - 8, 'font-size': 14, 'font-family': 'system-ui', 'text-anchor': x > 0 ? 'start' : 'end' }, t); });
+      el(svg, 'text', { x: 186, y: 168, 'font-size': 13, 'font-family': 'system-ui', fill: '#5d6577' }, '(0, 0)');
+      return;
+    }
+    const deg = +svg.dataset.deg, th = deg * Math.PI / 180;
+    if (kind === 'std') {
+      const O = [100, 100], L = 80; arrowDef(svg, id, '#c8641a'); arrowDef(svg, id + 'b', '#1d78b8'); arrowDef(svg, id + 'y', '#b08900');
+      el(svg, 'line', { x1: 8, y1: 100, x2: 192, y2: 100, stroke: '#d0ccc0', 'stroke-width': 1.5 }); el(svg, 'line', { x1: 100, y1: 8, x2: 100, y2: 192, stroke: '#d0ccc0', 'stroke-width': 1.5 });
+      el(svg, 'line', { x1: 100, y1: 100, x2: 100 + L, y2: 100, stroke: '#1d78b8', 'stroke-width': 4, 'marker-end': `url(#${id}b)` });
+      el(svg, 'line', { x1: 100, y1: 100, x2: 100 + L * Math.cos(th), y2: 100 - L * Math.sin(th), stroke: '#c8641a', 'stroke-width': 4, 'marker-end': `url(#${id})` });
+      const r = 28, pts = []; for (let i = 0; i <= 40; i++) { const a = th * i / 40; pts.push((100 + r * Math.cos(a)).toFixed(1) + ',' + (100 - r * Math.sin(a)).toFixed(1)); }
+      el(svg, 'polyline', { points: pts.join(' '), fill: 'none', stroke: '#b08900', 'stroke-width': 2.5, 'marker-end': `url(#${id}y)` });
+      el(svg, 'circle', { cx: 100, cy: 100, r: 4, fill: '#1f2430' });
+      el(svg, 'text', { x: 150, y: 117, 'font-size': 12, fill: '#1d78b8', 'font-family': 'system-ui' }, 'inicial');
+      const lx = 100 + (L + 4) * Math.cos(th), ly = 100 - (L + 4) * Math.sin(th);
+      el(svg, 'text', { x: lx, y: ly + (Math.sin(th) >= 0 ? -6 : 16), 'font-size': 12, fill: '#c8641a', 'font-family': 'system-ui', 'text-anchor': 'middle' }, 'terminal');
+      return;
+    }
+    if (kind === 'tri') {
+      const O = [160, 160], R = 110, x = Math.cos(th), y = Math.sin(th), px = O[0] + R * x, py = O[1] - R * y;
+      el(svg, 'line', { x1: 15, y1: 160, x2: 305, y2: 160, stroke: '#d0ccc0', 'stroke-width': 1.5 }); el(svg, 'line', { x1: 160, y1: 25, x2: 160, y2: 295, stroke: '#d0ccc0', 'stroke-width': 1.5 });
+      el(svg, 'circle', { cx: 160, cy: 160, r: R, fill: 'none', stroke: '#9aa1ae', 'stroke-width': 2 });
+      el(svg, 'polygon', { points: `160,160 ${px},160 ${px},${py}`, fill: '#eef3fb' });
+      el(svg, 'line', { x1: 160, y1: 160, x2: px, y2: 160, stroke: '#1d78b8', 'stroke-width': 5 });
+      el(svg, 'line', { x1: px, y1: 160, x2: px, y2: py, stroke: '#c8641a', 'stroke-width': 5 });
+      el(svg, 'line', { x1: 160, y1: 160, x2: px, y2: py, stroke: '#1f2430', 'stroke-width': 3 });
+      const s = x > 0 ? -1 : 1; el(svg, 'polyline', { points: `${px + s * 12},160 ${px + s * 12},${160 - 12 * Math.sign(y)} ${px},${160 - 12 * Math.sign(y)}`, fill: 'none', stroke: '#5d6577', 'stroke-width': 1.5 });
+      const pts = []; for (let i = 0; i <= 40; i++) { const a = th * i / 40; pts.push((160 + 24 * Math.cos(a)).toFixed(1) + ',' + (160 - 24 * Math.sin(a)).toFixed(1)); }
+      el(svg, 'polyline', { points: pts.join(' '), fill: 'none', stroke: '#b08900', 'stroke-width': 2.5 });
+      el(svg, 'circle', { cx: px, cy: py, r: 6, fill: '#b08900' });
+      const fx = { 60: '1/2', 150: '−√3/2' }[deg] || x.toFixed(2), fy = { 60: '√3/2', 150: '1/2' }[deg] || y.toFixed(2);
+      el(svg, 'text', { x: x > 0 ? px + 8 : px - 30, y: py - (x > 0 ? 8 : 16), 'font-size': 15, 'font-family': 'system-ui', 'text-anchor': 'start', fill: '#b08900' }, `P = (${fx}, ${fy})`);
+      el(svg, 'text', { x: (160 + px) / 2, y: 180, 'font-size': 15, 'font-family': 'system-ui', 'text-anchor': 'middle', fill: '#1d78b8' }, 'x = ' + fx);
+      el(svg, 'text', { x: px + (x > 0 ? 8 : -8), y: (160 + py) / 2 + 5, 'font-size': 15, 'font-family': 'system-ui', 'text-anchor': x > 0 ? 'start' : 'end', fill: '#c8641a' }, 'y = ' + fy);
+      el(svg, 'text', { x: (160 + px) / 2 + (x > 0 ? -14 : 14), y: (160 + py) / 2 - 4, 'font-size': 15, 'font-family': 'system-ui', 'text-anchor': 'middle', fill: '#1f2430' }, '1');
+      el(svg, 'text', { x: 190, y: 150, 'font-size': 14, 'font-family': 'system-ui', fill: '#b08900' }, deg + '°');
+      el(svg, 'text', { x: 278, y: 176, 'font-size': 13, 'font-family': 'system-ui', fill: '#5d6577' }, '(1, 0)');
+      el(svg, 'text', { x: 166, y: 44, 'font-size': 13, 'font-family': 'system-ui', fill: '#5d6577' }, '(0, 1)');
+    }
+  });
+})();
 const TUTOR = 'https://claude.ai/artifact/BAB6KRoTJNoWq4WfaLu8R7';
 // --- table of contents + per-section tools ---
 const toc = document.getElementById('toc');
