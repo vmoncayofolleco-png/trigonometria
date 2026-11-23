@@ -211,14 +211,48 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <header><span class="tag">Lección 2 · Módulo 4.2</span><h2>Del triángulo al círculo: funciones de cualquier ángulo</h2></header>
 <div class="box bridge"><b class="t">Conexión</b>En la lección 1 aprendiste que \(\operatorname{sen}\theta=\frac{op}{hip}\). Esa definición necesita un triángulo rectángulo, y un triángulo rectángulo solo tiene ángulos agudos (entre 0° y 90°). En esta lección vamos a ir <b>muy despacio</b>, en el mismo orden que tus diapositivas, para llegar a una definición de seno y coseno que sirva para <b>cualquier</b> ángulo.</div>
 
-<h3 id="l2-prob">El problema: ¿qué es sen 150°?</h3>
+<h3 id="l2-intro">Introducción: de dónde venimos y a dónde vamos</h3>
+<p>Antes de meternos en definiciones, hagamos una pausa y miremos el camino completo, para que nada aparezca "de la nada".</p>
+
+<h4>Lo que ya sabes (lección 1)</h4>
+<ol class="steps">
+<li>Un <b>ángulo</b> es un giro, y lo podemos medir en grados o en radianes (\(\pi\) rad \(=180^\circ\)).</li>
+<li>En un <b>triángulo rectángulo</b>, si escoges un ángulo agudo \(\theta\), los lados se llaman opuesto, adyacente e hipotenusa.</li>
+<li>Con esos lados definimos \(\operatorname{sen}\theta=\frac{op}{hip}\), \(\cos\theta=\frac{ady}{hip}\), \(\tan\theta=\frac{op}{ady}\), y sus recíprocas.</li>
+<li>Esas razones <b>solo dependen del ángulo</b> (no del tamaño del triángulo), y para 30°, 45° y 60° conocemos sus valores exactos.</li></ol>
+
+<h4>El límite de lo que sabes</h4>
+<p>Todo lo anterior necesita un triángulo rectángulo. Y en un triángulo rectángulo los otros dos ángulos <b>siempre</b> están entre 0° y 90°. Entonces, con lo que sabes hasta ahora:</p>
+<ul><li>Puedes calcular \(\operatorname{sen}30^\circ\), \(\cos45^\circ\), \(\tan60^\circ\)…</li>
+<li>Pero <b>no puedes</b> calcular \(\operatorname{sen}150^\circ\), \(\cos200^\circ\), \(\operatorname{sen}(-30^\circ)\) ni \(\operatorname{sen}(7)\). Para esos ángulos no existe el triángulo.</li></ul>
+
+<h4>¿Y para qué querríamos ángulos más grandes?</h4>
+<p>Piensa en una <b>rueda de Chicago</b> (noria). Te subes en el punto más a la derecha y la rueda empieza a girar. Pregunta natural: <i>después de girar cierto ángulo, ¿a qué altura estás?</i></p>
+<ul><li>Si giró 30°, estás subiendo: es un ángulo agudo y la lección 1 te sirve.</li>
+<li>Pero la rueda no se detiene en 90°. Sigue a 150°, 200°, 300°, da varias vueltas… En cada momento estás a <b>alguna</b> altura, aunque ya no haya un triángulo "normal".</li></ul>
+<p>Esa altura, para cualquier ángulo de giro, es justo lo que vamos a llamar <b>seno</b>. Y cuánto estás a la derecha o a la izquierda del centro será el <b>coseno</b>. Así que esta lección responde una pregunta muy concreta: <b>¿cómo definimos seno y coseno para cualquier giro, y no solo para ángulos de triángulo?</b></p>
+<div class="box why"><b class="t">¿Por qué no inventar algo totalmente nuevo?</b>Porque queremos que la nueva definición <b>no contradiga</b> la de la lección 1. Para 30°, 45° o 60° tiene que seguir dando lo mismo que op/hip. Lo que vamos a hacer es <b>extender</b> lo que ya sabes, no reemplazarlo.</div>
+
+<h4>El plan de la lección</h4>
+<p>Vamos a avanzar en el mismo orden que las diapositivas de 4.2. Cada parte necesita la anterior:</p>
+<table><tr><th>Parte</th><th>Qué hacemos</th><th>Para qué sirve</th></tr>
+<tr><td>1. Cualquier número es un ángulo</td><td>Leer números como 1, 7 o −2 como giros</td><td>Poder hablar de "funciones", que aceptan cualquier número</td></tr>
+<tr><td>2. Posición normal</td><td>Dibujar todos los ángulos empezando desde el mismo lugar</td><td>Que lo único que cambie de un ángulo a otro sea dónde termina</td></tr>
+<tr><td>3. Círculo unitario</td><td>Ver dónde corta el lado terminal a un círculo de radio 1</td><td>Definir seno y coseno como las coordenadas de ese punto</td></tr>
+<tr><td>4. Las otras cuatro</td><td>Escribir tan, cot, sec, csc con seno y coseno</td><td>Tener las seis funciones para cualquier ángulo</td></tr>
+<tr><td>5. Coterminales, signos y referencia</td><td>Ver cuándo dos ángulos son "el mismo", qué signo tienen y cómo volver a la tabla</td><td>Calcular valores exactos sin calculadora</td></tr></table>
+<div class="box key"><b class="t">La idea que lo une todo</b>Al final de la parte 3 vas a llegar a esta frase: <b>"el seno es la altura y el coseno es la posición horizontal de un punto que gira en un círculo de radio 1"</b>. Todo el resto del capítulo (identidades, gráficas, ecuaciones) se construye sobre esa frase. Si en algún momento te pierdes, vuelve a ella.</div>
+
+<h3 id="l2-prob">El problema, con detalle: ¿qué es sen 150°?</h3>
+<p>Empecemos con el ejemplo más simple del límite que acabamos de ver.</p>
 <p>Intenta dibujar un triángulo rectángulo con un ángulo de 150°. No se puede: los tres ángulos de un triángulo suman 180°, y si uno ya vale 90° y otro 150°, nos pasamos (90 + 150 = 240). Así que la definición de la lección 1 no sirve para 150°.</p>
-<p>Lo mismo pasa con 200°, con −45°, o con 7 radianes. Pero en física, ingeniería y en el resto del curso necesitamos el seno de esos ángulos. La solución de las diapositivas tiene tres pasos, y los vamos a ver uno por uno:</p>
+<p>Lo mismo pasa con 200°, con −45°, o con 7 radianes. Pero en física, ingeniería y en el resto del curso necesitamos el seno de esos ángulos. Las tres primeras partes del plan son las que construyen la nueva definición. Las vamos a ver una por una:</p>
 <ol class="steps"><li>Entender que <b>cualquier número real</b> puede ser un ángulo.</li>
 <li>Dibujar todos los ángulos de la misma manera: en <b>posición normal</b>.</li>
 <li>Definir seno y coseno con un <b>punto en un círculo</b>, en vez de con un triángulo.</li></ol>
 
 <h3 id="l2-real">Paso 1: cualquier número real es un ángulo</h3>
+<p><i>Ya sabemos qué queremos: seno y coseno para cualquier giro. El primer paso es aceptar que un giro puede ser cualquier número.</i></p>
 <p>Tu diapositiva de introducción dice: <i>"Cualquier número real representa la medida de un ángulo en radianes."</i> ¿Qué significa eso?</p>
 <p>Recuerda de la lección 1 que un ángulo es un <b>giro</b>, y que en radianes una vuelta completa mide \(2\pi\approx6{,}28\). Entonces, si te dan un número cualquiera \(t\), lo lees como "gira \(t\) radianes":</p>
 <table><tr><th>Número</th><th>Qué giro es</th><th>En grados (aprox.)</th></tr>
@@ -232,6 +266,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <p>Para que eso funcione, como dice la diapositiva, <i>"es necesario conocer \(\operatorname{sen}\theta\) y \(\cos\theta\) de cualquier ángulo"</i>. Las otras cuatro (tan, cot, sec, csc) las vamos a construir a partir de esas dos.</p>
 
 <h3 id="l2-plano">Repaso rápido: el plano cartesiano</h3>
+<p><i>Ya tenemos ángulos de cualquier tamaño. Ahora necesitamos un lugar donde dibujarlos todos con las mismas reglas: el plano cartesiano.</i></p>
 <p>Antes de dibujar ángulos, recordemos dónde los vamos a dibujar. El plano cartesiano tiene dos ejes que se cruzan en el <b>origen</b> \((0,0)\):</p>
 <figure><svg data-fig="plane" viewBox="0 0 360 300" width="360"></svg>
 <figcaption>Cada punto tiene coordenadas \((x, y)\): \(x\) dice cuánto va a la derecha (+) o a la izquierda (−); \(y\) dice cuánto sube (+) o baja (−).</figcaption></figure>
@@ -241,6 +276,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <p>Guarda esta lista: más adelante, el signo del seno y del coseno va a salir exactamente de aquí.</p>
 
 <h3 id="l2-pos">Paso 2: ángulos en posición normal</h3>
+<p><i>Con el plano listo, ponemos una regla para dibujar cualquier ángulo dentro de él.</i></p>
 <p>La diapositiva dice: <i>"Un ángulo está en posición normal si está en el plano cartesiano con el vértice en el origen y su lado inicial en el eje positivo \(x\)."</i> Vamos parte por parte:</p>
 <ul><li><b>Vértice en el origen:</b> el punto donde "se clava" la manecilla que gira es el \((0,0)\).</li>
 <li><b>Lado inicial en el eje \(x\) positivo:</b> la manecilla siempre <b>empieza</b> apuntando hacia la derecha.</li>
@@ -260,6 +296,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <details class="check"><summary>Compruébalo: ¿en qué cuadrante termina \(\frac{3\pi}4\)? ¿Y \(\frac{5\pi}3\)?</summary><p>\(\frac{3\pi}4=3\cdot45^\circ=135^\circ\) → cuadrante II. \(\frac{5\pi}3=5\cdot60^\circ=300^\circ\) → cuadrante IV.</p></details>
 
 <h3 id="l2-circ">Paso 3: el círculo unitario</h3>
+<p><i>Ya sabemos dibujar cualquier ángulo y ver dónde termina. Ahora viene el paso que conecta con la lección 1: convertir "dónde termina" en un número. Recuerda la rueda de Chicago: queremos la altura y la posición horizontal.</i></p>
 <p>Ahora la idea clave. Dibuja un círculo con centro en el origen y <b>radio 1</b>. Se llama <b>círculo unitario</b> ("unitario" porque su radio es 1). Todos sus puntos están a distancia exactamente 1 del origen. Por ejemplo, los cuatro puntos donde cruza los ejes son \((1,0)\), \((0,1)\), \((-1,0)\) y \((0,-1)\).</p>
 <p>Si dibujas un ángulo \(\theta\) en posición normal, su lado terminal sale del origen y, tarde o temprano, <b>choca con el círculo</b> en un punto. Llamemos a ese punto \(P=(x,y)\). Cada ángulo tiene su propio punto \(P\).</p>
 
@@ -305,6 +342,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <p>120° está 60° antes de 180°: es el reflejo del punto de 60° hacia la izquierda. \(P=\left(-\frac12,\ \frac{\sqrt3}2\right)\), así que \(\cos\frac{2\pi}3=-\frac12\) y \(\operatorname{sen}\frac{2\pi}3=\frac{\sqrt3}2\).</p></details>
 
 <h3 id="l2-otras">Las otras cuatro funciones</h3>
+<p><i>Ya tenemos seno y coseno para cualquier ángulo. En la lección 1 había seis razones; falta recuperar las otras cuatro.</i></p>
 <p>La diapositiva dice que las demás se definen a partir de seno y coseno:</p>
 <div class="formula">\[\tan\theta=\frac{\operatorname{sen}\theta}{\cos\theta}\qquad\cot\theta=\frac{\cos\theta}{\operatorname{sen}\theta}\qquad\sec\theta=\frac{1}{\cos\theta}\qquad\csc\theta=\frac{1}{\operatorname{sen}\theta}\]</div>
 <p>Vamos una por una, para ver de dónde sale cada fórmula:</p>
@@ -321,6 +359,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <li>\(\sec\frac\pi3=\frac{1}{1/2}=2\) y \(\csc\frac\pi3=\frac{1}{\sqrt3/2}=\frac{2}{\sqrt3}=\frac{2\sqrt3}3\).</li></ol></div>
 
 <h3 id="l2-nodef">Cuando una función no existe</h3>
+<p><i>Como las cuatro nuevas son divisiones, hay que tener cuidado con un detalle: dividir entre cero.</i></p>
 <p>La diapositiva termina con un ejemplo importante: <i>\(\operatorname{sen}\frac\pi2=1\), \(\cos\frac\pi2=0\) y \(\tan\frac\pi2\) no está definida.</i> Veamos por qué:</p>
 <ol class="steps"><li>El ángulo \(\frac\pi2\) (90°) termina en el eje \(y\) positivo; su punto es \(P=(0,1)\).</li>
 <li>Entonces \(\cos\frac\pi2=x=0\) y \(\operatorname{sen}\frac\pi2=y=1\).</li>
@@ -329,6 +368,7 @@ mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
 <details class="check"><summary>Compruébalo: ¿existe \(\cot\pi\)? ¿Y \(\sec\pi\)?</summary><p>\(P=(-1,0)\). \(\cot\pi=\frac{x}{y}=\frac{-1}{0}\) → no existe. \(\sec\pi=\frac1x=\frac1{-1}=-1\) → sí existe.</p></details>
 
 <h3 id="l2-cot">Ángulos coterminales: dar vueltas no cambia nada</h3>
+<p><i>Ya tenemos las seis funciones para cualquier ángulo. Ahora vamos a aprender a calcularlas rápido. Primera observación: hay ángulos distintos que terminan en el mismo lugar, como la rueda de Chicago después de dar una vuelta completa.</i></p>
 <p>La diapositiva dice: <i>"Dos ángulos en posición normal son coterminales si sus lados terminales coinciden."</i> Es decir, terminan apuntando exactamente al mismo lugar, aunque hayan girado distinto.</p>
 <p>Ejemplo: \(\frac\pi3\) (60°) y \(\frac\pi3+2\pi=\frac{7\pi}3\) (420°). El segundo da una vuelta completa (360°) y luego gira 60° más: termina en el mismo lugar que el primero. También \(\frac\pi3-2\pi=-\frac{5\pi}3\) termina ahí, dando una vuelta hacia atrás. En general, \(\theta\) y \(\theta+2\pi k\) (con \(k\) entero: …, −2, −1, 0, 1, 2, …) son coterminales.</p>
 <div class="box why"><b class="t">¿Por qué importa?</b>Si terminan en el mismo punto \(P\), tienen el mismo seno y coseno. Por eso las funciones trigonométricas <b>se repiten cada \(2\pi\)</b>. Esta repetición es la que dibuja las ondas de la lección 4 y la que da infinitas soluciones en la lección 5.</div>
