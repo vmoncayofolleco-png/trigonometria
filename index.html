@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trigonometría desde cero · Capítulo 4</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<style>
+:root { --bg:#fbfaf7; --paper:#ffffff; --ink:#1f2430; --muted:#5d6577; --line:#e4e1d8;
+        --c1:#1d78b8; --c2:#c8641a; --c3:#2f8f4e; --c4:#7a4fc9; --c5:#c23b3b; --c0:#4a5568;
+        --why:#eaf6ee; --warn:#fdeceb; --key:#fff6d6; --bridge:#eef3fb; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--ink); font:18px/1.75 Georgia, "Iowan Old Style", "Palatino Linotype", serif; }
+.sans, nav, button, .tag, table, .pill { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+nav { position:fixed; top:0; left:0; bottom:0; width:270px; background:#f3f1ea; border-right:1px solid var(--line); overflow-y:auto; padding:22px 16px; font-size:14.5px; }
+nav h1 { font-size:17px; margin:0 0 4px; } nav p { color:var(--muted); margin:0 0 16px; font-size:13px; line-height:1.4; }
+nav a { display:block; color:var(--ink); text-decoration:none; padding:4px 8px; border-radius:8px; line-height:1.35; }
+nav a.l { font-weight:700; margin-top:12px; } nav a.s { padding-left:20px; color:var(--muted); font-size:13.5px; }
+nav a.on { background:#fff; box-shadow:0 0 0 1px var(--line); color:var(--ink); }
+.prog { height:6px; background:var(--line); border-radius:9px; margin:10px 0 4px; overflow:hidden; } .prog i { display:block; height:100%; width:0; background:var(--c3); }
+main { margin-left:270px; padding:40px 24px 120px; }
+article { max-width:760px; margin:0 auto; }
+@media (max-width: 900px) { nav { position:static; width:auto; border-right:0; border-bottom:1px solid var(--line); } main { margin-left:0; padding-top:20px; } }
+.lesson { margin-top:70px; }
+.lesson > header { border-top:6px solid var(--acc); padding-top:16px; }
+.tag { display:inline-block; font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--acc); }
+h2 { font-size:34px; line-height:1.2; margin:6px 0 10px; }
+h3 { font-size:24px; margin:44px 0 8px; line-height:1.3; }
+h4 { font-size:19px; margin:26px 0 4px; font-family:system-ui, sans-serif; }
+p { margin:12px 0; }
+.lede { font-size:20px; color:var(--muted); }
+.box { border-radius:12px; padding:14px 18px; margin:18px 0; }
+.box > b.t { display:block; font-family:system-ui, sans-serif; font-size:13px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:2px; }
+.why { background:var(--why); } .why > b.t { color:var(--c3); }
+.warn { background:var(--warn); } .warn > b.t { color:var(--c5); }
+.key { background:var(--key); } .key > b.t { color:#8a6a00; }
+.bridge { background:var(--bridge); border-left:5px solid var(--acc); } .bridge > b.t { color:var(--acc); }
+.formula { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:8px 16px; margin:18px 0; text-align:center; }
+.ex { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:6px 18px 12px; margin:20px 0; }
+.ex > .h { font-family:system-ui, sans-serif; font-weight:700; color:var(--acc); margin:10px 0 4px; }
+ol.steps { padding-left:0; list-style:none; counter-reset:s; }
+ol.steps > li { counter-increment:s; position:relative; padding:4px 0 8px 42px; }
+ol.steps > li::before { content:counter(s); position:absolute; left:0; top:6px; width:28px; height:28px; border-radius:50%; background:var(--acc); color:#fff; font:700 14px/28px system-ui, sans-serif; text-align:center; }
+table { border-collapse:collapse; width:100%; margin:16px 0; font-size:15.5px; background:var(--paper); }
+th, td { border:1px solid var(--line); padding:7px 8px; text-align:center; } th { background:#f1efe8; }
+details.check { background:var(--paper); border:1px dashed var(--acc); border-radius:12px; padding:10px 16px; margin:14px 0; }
+details.check summary { cursor:pointer; font-family:system-ui, sans-serif; font-weight:600; }
+details.check summary::marker { color:var(--acc); }
+.tools { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 0; }
+.pill { font-size:13.5px; border:1px solid var(--acc); color:var(--acc); background:#fff; border-radius:999px; padding:4px 12px; cursor:pointer; text-decoration:none; }
+.pill:hover { background:var(--acc); color:#fff; }
+figure { margin:20px 0; text-align:center; } figure svg { max-width:100%; height:auto; }
+figcaption { font-family:system-ui, sans-serif; font-size:14px; color:var(--muted); }
+.widget { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px; margin:22px 0; font-family:system-ui, sans-serif; font-size:15.5px; }
+.widget .grid { display:grid; grid-template-columns: 300px 1fr; gap:16px; align-items:center; }
+@media (max-width: 640px) { .widget .grid { grid-template-columns:1fr; } }
+.widget canvas { width:100%; max-width:300px; aspect-ratio:1; }
+.widget input[type=range] { width:100%; }
+.widget label { display:block; margin-top:6px; }
+mjx-container { overflow-x:auto; overflow-y:hidden; max-width:100%; }
+.c1{color:var(--c1)} .c2{color:var(--c2)} .c3{color:var(--c3)} .c5{color:var(--c5)} .c4{color:var(--c4)}
+</style>
+</head>
+<body>
+<nav id="nav" class="sans">
+  <h1>Trigonometría desde cero</h1>
+  <p>Capítulo 4 · una clase continua: cada tema se construye sobre el anterior.</p>
+  <div class="prog"><i id="bar"></i></div>
+  <div id="toc"></div>
+</nav>
+<main><article>
+
+<header style="margin-top:10px">
+  <span class="tag" style="--acc:var(--c0)">Cómo usar esta clase</span>
+  <h2>Antes de empezar</h2>
+  <p class="lede">Esta clase está pensada para alguien que <b>no sabe nada</b> de trigonometría. Léela en orden: cada lección usa lo que viste en la anterior, y al principio de cada una hay un recuadro azul que te dice de dónde venimos y a dónde vamos.</p>
+  <p>Vas a ver cuatro tipos de recuadros:</p>
+  <div class="box why"><b class="t">¿Por qué?</b>Explica la razón detrás de un paso. Es lo más importante: si entiendes el porqué, no tienes que memorizar.</div>
+  <div class="box key"><b class="t">Clave</b>Algo que vas a usar una y otra vez. Vale la pena anotarlo.</div>
+  <div class="box warn"><b class="t">Cuidado</b>Un error muy común. Léelo dos veces.</div>
+  <div class="box bridge" style="--acc:var(--c0)"><b class="t">Conexión</b>Cómo este tema se une con lo anterior o lo siguiente.</div>
+  <p>Al final de cada parte hay preguntas de <b>"Compruébalo"</b>: intenta responderlas antes de abrirlas. Y el botón <span class="pill" style="--acc:var(--c0)">💬 Preguntar al tutor</span> abre tu tutor de Claude en el tema donde estás, para que preguntes lo que no entiendas.</p>
+</header>
+
+<!-- ============================ LECCIÓN 0 ============================ -->
+<section class="lesson" id="l0" style="--acc:var(--c0)" data-mod="m1">
+<header><span class="tag">Lección 0 · Herramientas</span><h2>Lo mínimo que necesitas saber antes</h2></header>
+<p class="lede">La trigonometría usa unas pocas ideas de geometría y álgebra. Si las tienes claras, todo lo demás fluye.</p>
+
+<h3 id="l0-tri">El triángulo rectángulo</h3>
+<p>Un <b>triángulo rectángulo</b> es un triángulo que tiene un ángulo de exactamente \(90^\circ\) (una "esquina" perfecta, como la de una hoja de papel). Ese ángulo se marca con un cuadradito.</p>
+<figure><svg viewBox="0 0 420 220" width="420"><polygon points="40,190 360,190 360,30" fill="#eef3fb" stroke="#1f2430" stroke-width="3"/><polyline points="340,190 340,170 360,170" fill="none" stroke="#1f2430" stroke-width="2"/>
+<text x="200" y="214" font-size="17" text-anchor="middle" font-family="system-ui">cateto</text><text x="372" y="115" font-size="17" font-family="system-ui">cateto</text>
+<text x="175" y="95" font-size="17" text-anchor="middle" font-family="system-ui" fill="#7a4fc9" transform="rotate(-26 175 95)">hipotenusa</text></svg>
+<figcaption>Los dos lados que forman la esquina de 90° son los <b>catetos</b>. El lado de enfrente, el más largo, es la <b>hipotenusa</b>.</figcaption></figure>
+<p>Los ángulos de cualquier triángulo suman \(180^\circ\). Como uno ya vale \(90^\circ\), los otros dos suman \(90^\circ\): ambos son <b>agudos</b> (menores que \(90^\circ\)).</p>
+
+<h3 id="l0-pit">El teorema de Pitágoras</h3>
+<div class="formula">\[\text{hipotenusa}^2 = \text{cateto}_1^2 + \text{cateto}_2^2\]</div>
+<p>Si conoces dos lados de un triángulo rectángulo, Pitágoras te da el tercero. Ejemplo: catetos 3 y 4 → \(hip^2 = 9 + 16 = 25\), así que \(hip = 5\).</p>
+<p>Si lo que falta es un cateto, despejas: \(\text{cateto}^2 = hip^2 - \text{otro cateto}^2\). Ejemplo: hipotenusa 13 y un cateto 5 → \(\text{cateto}^2 = 169 - 25 = 144\), cateto \(=12\).</p>
+<div class="box warn"><b class="t">Cuidado</b>Para el cateto se <b>resta</b>, no se suma. La hipotenusa siempre es el lado más largo, así que su cuadrado es el más grande.</div>
+
+<h3 id="l0-alg">Raíces y fracciones que vas a ver mucho</h3>
+<ul>
+<li>\((\sqrt{a})^2 = a\): la raíz y el cuadrado se anulan. Por ejemplo \((\sqrt2)^2 = 2\).</li>
+<li>\(\sqrt{\frac{a}{b}} = \frac{\sqrt a}{\sqrt b}\). Por ejemplo \(\sqrt{\frac{16}{25}} = \frac45\).</li>
+<li><b>Racionalizar</b> es quitar la raíz del denominador multiplicando arriba y abajo por ella: \(\frac{1}{\sqrt2} = \frac{1}{\sqrt2}\cdot\frac{\sqrt2}{\sqrt2} = \frac{\sqrt2}{2}\). Es el mismo número escrito de otra forma.</li>
+<li>Dividir fracciones: \(\frac{a/c}{b/c} = \frac{a}{b}\). Si las dos tienen el mismo denominador, este se cancela.</li>
+<li>\(x^2 = k\) tiene <b>dos</b> soluciones: \(x = \pm\sqrt k\). Esto será clave en la lección 5.</li>
+</ul>
+<details class="check"><summary>Compruébalo: un triángulo rectángulo tiene hipotenusa 3 y un cateto \(\sqrt2\). ¿Cuánto mide el otro cateto?</summary>
+<p>\(\text{cateto}^2 = 3^2 - (\sqrt2)^2 = 9 - 2 = 7\), así que mide \(\sqrt7\).</p></details>
+</section>
+
+<!-- ============================ LECCIÓN 1 ============================ -->
+<section class="lesson" id="l1" style="--acc:var(--c1)" data-mod="m1">
+<header><span class="tag">Lección 1 · Módulo 4.1</span><h2>Ángulos, radianes y las razones trigonométricas</h2></header>
+<div class="box bridge"><b class="t">Conexión</b>Ya sabes qué es un triángulo rectángulo y cómo Pitágoras relaciona sus <b>lados</b>. Pero Pitágoras no dice nada de los <b>ángulos</b>. La trigonometría es justamente el puente entre ángulos y lados: si conoces un ángulo, puedes saber cómo son los lados, y al revés.</div>
+
+<h3 id="l1-ang">¿Qué es un ángulo, de verdad?</h3>
+<p>Imagina una manecilla de reloj clavada en un punto \(O\). Empieza apuntando en una dirección (el <b>lado inicial</b>) y gira hasta otra (el <b>lado terminal</b>). El <b>ángulo</b> es la medida de ese giro.</p>
+<p>Pensar el ángulo como un giro y no como una "abertura" es importante, porque un giro puede ir en dos sentidos:</p>
+<ul><li>Contrario a las manecillas del reloj ↺: ángulo <b class="c3">positivo</b>.</li><li>Igual que las manecillas ↻: ángulo <b class="c5">negativo</b>.</li></ul>
+<p>Y un giro puede ser tan grande como quieras: dar una vuelta y media es un ángulo de \(540^\circ\). Esto parece raro ahora, pero en la lección 2 es justo lo que nos permitirá hablar del seno de cualquier número.</p>
+
+<h3 id="l1-rad">Dos formas de medir: grados y radianes</h3>
+<p>Los <b>grados</b> dividen una vuelta completa en 360 partes. ¿Por qué 360? Por costumbre histórica de los babilonios; no hay ninguna razón matemática.</p>
+<p>Los <b>radianes</b> usan el propio círculo. Toma un círculo de radio \(r\). Ahora toma un "hilo" del largo del radio y pégalo sobre el borde del círculo. El ángulo que abarca ese pedazo de borde es <b>1 radián</b>.</p>
+<figure><svg viewBox="0 0 320 240" width="320"><circle cx="140" cy="130" r="95" fill="none" stroke="#9aa1ae" stroke-width="2"/><line x1="140" y1="130" x2="235" y2="130" stroke="#1d78b8" stroke-width="4"/><text x="185" y="150" font-size="18" fill="#1d78b8" font-family="system-ui">r</text>
+<path d="M235,130 A95,95 0 0,0 191.3,50.1" fill="none" stroke="#c8641a" stroke-width="7"/><line x1="140" y1="130" x2="191.3" y2="50.1" stroke="#1f2430" stroke-width="2.5"/>
+<text x="222" y="78" font-size="16" fill="#c8641a" font-family="system-ui">arco = r</text><path d="M170,130 A30,30 0 0,0 156.2,104.8" fill="none" stroke="#2f8f4e" stroke-width="3"/><text x="178" y="116" font-size="14" fill="#2f8f4e" font-family="system-ui">1 rad</text></svg>
+<figcaption>1 radián: el arco (naranja) mide lo mismo que el radio (azul). Equivale a unos 57,3°.</figcaption></figure>
+<p>¿Cuántos radios caben en toda la vuelta? El borde del círculo mide \(2\pi r\), así que caben \(2\pi \approx 6{,}28\) radios. Por eso:</p>
+<div class="formula">\[1\text{ vuelta} = 360^\circ = 2\pi\text{ rad}\qquad\Longrightarrow\qquad \pi\text{ rad} = 180^\circ\]</div>
+<div class="box key"><b class="t">Clave</b>\(\pi\) radianes \(=180^\circ\) (media vuelta). Es lo único que tienes que memorizar de esta parte. Todo lo demás sale de aquí.</div>
+<h4>Cómo convertir</h4>
+<div class="formula">\[\text{a grados: }\ \times\frac{180}{\pi}\qquad\qquad \text{a radianes: }\ \times\frac{\pi}{180}\]</div>
+<div class="box why"><b class="t">¿Por qué?</b>Como \(180^\circ\) y \(\pi\) rad son la misma cantidad, la fracción \(\frac{180}{\pi}\) vale "1" (solo cambia la unidad). Multiplicar por 1 no cambia el ángulo. Truco: <b>lo que quieres obtener va arriba</b>. ¿Quieres grados? 180 arriba. ¿Quieres radianes? \(\pi\) arriba.</div>
+<div class="ex"><div class="h">Ejemplos</div>
+<p>\(\frac{\pi}{3}\cdot\frac{180}{\pi} = \frac{180}{3} = 60^\circ\) &nbsp;·&nbsp; \(\frac{\pi}{6}\to 30^\circ\) &nbsp;·&nbsp; \(\frac{\pi}{4}\to 45^\circ\)</p>
+<p>\(120^\circ\cdot\frac{\pi}{180} = \frac{120\pi}{180} = \frac{2\pi}{3}\) (dividimos entre 60) &nbsp;·&nbsp; \(75^\circ\cdot\frac{\pi}{180} = \frac{5\pi}{12}\) (dividimos entre 15)</p></div>
+<div class="box key"><b class="t">Atajo</b>Si el denominador es 6, cada \(\pi\) "vale" 30°; si es 4, vale 45°; si es 3, vale 60°. Así \(\frac{5\pi}{6} = 5\cdot30^\circ = 150^\circ\) y \(\frac{7\pi}{4} = 7\cdot45^\circ = 315^\circ\). Lo usarás todo el tiempo.</div>
+<details class="check"><summary>Compruébalo: ¿cuántos grados son \(\frac{4\pi}{3}\)? ¿Y cuántos radianes son \(150^\circ\)?</summary><p>\(4\cdot60^\circ = 240^\circ\). Y \(150\cdot\frac{\pi}{180} = \frac{5\pi}{6}\).</p></details>
+
+<h3 id="l1-lados">Nombrar los lados desde un ángulo</h3>
+<p>Volvamos al triángulo rectángulo. Elegimos uno de sus ángulos agudos y lo llamamos \(\theta\) ("theta"). Ahora los catetos reciben un nombre <b>según su posición respecto a \(\theta\)</b>:</p>
+<figure><svg viewBox="0 0 420 230" width="420"><polygon points="50,190 360,190 360,40" fill="#f7fbff" stroke="none"/>
+<line x1="50" y1="190" x2="360" y2="190" stroke="#1d78b8" stroke-width="5"/><line x1="360" y1="190" x2="360" y2="40" stroke="#c8641a" stroke-width="5"/><line x1="50" y1="190" x2="360" y2="40" stroke="#7a4fc9" stroke-width="5"/>
+<polyline points="340,190 340,170 360,170" fill="none" stroke="#333" stroke-width="2"/><path d="M110,190 A60,60 0 0,0 104,164" fill="none" stroke="#b08900" stroke-width="3"/><text x="118" y="178" font-size="20" fill="#b08900">θ</text>
+<text x="205" y="216" text-anchor="middle" font-size="17" fill="#1d78b8" font-family="system-ui">adyacente (toca a θ)</text><text x="370" y="120" font-size="17" fill="#c8641a" font-family="system-ui">opuesto</text>
+<text x="190" y="100" font-size="17" fill="#7a4fc9" font-family="system-ui" text-anchor="middle" transform="rotate(-26 190 100)">hipotenusa</text></svg></figure>
+<ul><li><b class="c4">Hipotenusa</b>: siempre la misma, el lado frente al ángulo recto.</li>
+<li><b class="c2">Opuesto</b>: el cateto que está "enfrente" de \(\theta\); no lo toca.</li>
+<li><b class="c1">Adyacente</b>: el cateto que toca a \(\theta\).</li></ul>
+<div class="box warn"><b class="t">Cuidado</b>Si miras desde el <b>otro</b> ángulo agudo, opuesto y adyacente se intercambian. Siempre ubícate primero: "¿desde qué ángulo estoy mirando?"</div>
+
+<h3 id="l1-raz">Las seis razones trigonométricas</h3>
+<p>Una <b>razón</b> es simplemente un cociente (una división). Con tres lados podemos hacer seis divisiones distintas, y cada una tiene nombre:</p>
+<div class="formula">\[\operatorname{sen}\theta=\frac{\color{#c8641a}{op}}{\color{#7a4fc9}{hip}}\qquad \cos\theta=\frac{\color{#1d78b8}{ady}}{\color{#7a4fc9}{hip}}\qquad \tan\theta=\frac{\color{#c8641a}{op}}{\color{#1d78b8}{ady}}\]
+\[\csc\theta=\frac{hip}{op}\qquad \sec\theta=\frac{hip}{ady}\qquad \cot\theta=\frac{ady}{op}\]</div>
+<p>Las tres de abajo son las de arriba "volteadas": \(\csc = \frac{1}{\operatorname{sen}}\), \(\sec = \frac{1}{\cos}\), \(\cot=\frac{1}{\tan}\). Si sabes las tres primeras, las otras tres salen solas.</p>
+<div class="box key"><b class="t">Para no confundir las parejas</b>Cada pareja tiene exactamente un "co": sen ↔ <b>co</b>secante, <b>co</b>seno ↔ secante, tangente ↔ <b>co</b>tangente.</div>
+
+<h3 id="l1-sem">La idea más importante: solo depende del ángulo</h3>
+<p>Aquí está el corazón de toda la trigonometría. Toma un triángulo con lados 3, 4, 5. Ahora haz uno el doble de grande: 6, 8, 10. Los ángulos son exactamente los mismos (solo hiciste "zoom").</p>
+<table><tr><th></th><th>Triángulo 3-4-5</th><th>Triángulo 6-8-10</th></tr>
+<tr><td>\(\operatorname{sen}\theta = op/hip\)</td><td>\(3/5 = 0{,}6\)</td><td>\(6/10 = 0{,}6\)</td></tr>
+<tr><td>\(\cos\theta = ady/hip\)</td><td>\(4/5 = 0{,}8\)</td><td>\(8/10 = 0{,}8\)</td></tr></table>
+<div class="box why"><b class="t">¿Por qué?</b>Triángulos con los mismos ángulos (llamados <b>semejantes</b>) tienen lados proporcionales: si uno se multiplica por 2, todos se multiplican por 2, y en la división el 2 se cancela. Por eso \(\operatorname{sen}\theta\) es una propiedad del <b>ángulo</b>, no del triángulo. Y por eso, en los ejercicios, <b>podemos inventar el tamaño del triángulo</b> mientras respete la razón que nos dan.</div>
+
+<h3 id="l1-res">Resolver: me dan una razón y me piden otra</h3>
+<ol class="steps">
+<li>Escribe la razón que te dan como fracción. Un número solo, como \(\sqrt5\), es \(\frac{\sqrt5}{1}\).</li>
+<li>Según la definición, asigna esos números a los lados (por la semejanza, puedes hacerlo).</li>
+<li>Usa Pitágoras para el lado que falta.</li>
+<li>Lee la razón que te piden.</li></ol>
+<div class="ex"><div class="h">Ejemplo: \(\cos\theta=\frac25\), con \(\theta\) agudo. Hallar \(\tan\theta\).</div>
+<ol class="steps"><li>\(\cos\theta = \frac{ady}{hip} = \frac25\).</li><li>Tomamos \(ady = 2\) y \(hip = 5\).</li>
+<li>\(op^2 = 5^2 - 2^2 = 21\), así que \(op = \sqrt{21}\).</li><li>\(\tan\theta = \frac{op}{ady} = \frac{\sqrt{21}}{2}\).</li></ol></div>
+<div class="ex"><div class="h">Ejemplo: \(\cot\theta=\sqrt5\). Hallar \(\operatorname{sen}\theta\).</div>
+<p>\(\cot = \frac{ady}{op} = \frac{\sqrt5}{1}\), entonces \(ady=\sqrt5,\ op=1\). Pitágoras: \(hip = \sqrt{1+5} = \sqrt6\). Por lo tanto \(\operatorname{sen}\theta = \frac{1}{\sqrt6}\).</p></div>
+<div class="ex"><div class="h">Ejemplo: catetos 2 (opuesto a \(\theta\)) y 5 (adyacente). Las seis razones.</div>
+<p>\(hip=\sqrt{4+25}=\sqrt{29}\). Entonces \(\operatorname{sen}\theta=\frac{2}{\sqrt{29}},\ \cos\theta=\frac{5}{\sqrt{29}},\ \tan\theta=\frac25\), y volteando: \(\csc\theta=\frac{\sqrt{29}}{2},\ \sec\theta=\frac{\sqrt{29}}{5},\ \cot\theta=\frac52\).</p></div>
+
+<h3 id="l1-not">Los ángulos notables: 30°, 45° y 60°</h3>
+<p>Estos ángulos aparecen en casi todos los ejercicios. No hace falta memorizarlos a ciegas: salen de dos triángulos muy sencillos.</p>
+<h4>45°: medio cuadrado</h4>
+<p>Corta un cuadrado de lado 1 por la diagonal. Queda un triángulo rectángulo con catetos 1 y 1; sus dos ángulos agudos son iguales, así que valen \(45^\circ\) cada uno. La diagonal mide \(\sqrt{1+1}=\sqrt2\).</p>
+<p>Entonces \(\operatorname{sen}45^\circ = \frac{1}{\sqrt2} = \frac{\sqrt2}{2}\), \(\cos45^\circ = \frac{\sqrt2}{2}\) y \(\tan45^\circ = \frac11 = 1\).</p>
+<h4>30° y 60°: medio triángulo equilátero</h4>
+<p>Un triángulo equilátero de lado 2 tiene sus tres ángulos de \(60^\circ\). Pártelo por la mitad con su altura: queda un triángulo rectángulo con hipotenusa 2, base 1 (la mitad de 2) y altura \(\sqrt{4-1}=\sqrt3\). Los ángulos son \(60^\circ\) abajo y \(30^\circ\) arriba (la mitad de 60).</p>
+<p>Desde 60°: opuesto \(\sqrt3\), adyacente 1. Desde 30° se intercambian. Con eso llenamos la tabla:</p>
+<table><tr><th>\(\theta\)</th><th>0</th><th>\(\frac\pi6\) (30°)</th><th>\(\frac\pi4\) (45°)</th><th>\(\frac\pi3\) (60°)</th><th>\(\frac\pi2\) (90°)</th></tr>
+<tr><td>sen</td><td>0</td><td>\(\frac12\)</td><td>\(\frac{\sqrt2}2\)</td><td>\(\frac{\sqrt3}2\)</td><td>1</td></tr>
+<tr><td>cos</td><td>1</td><td>\(\frac{\sqrt3}2\)</td><td>\(\frac{\sqrt2}2\)</td><td>\(\frac12\)</td><td>0</td></tr>
+<tr><td>tan</td><td>0</td><td>\(\frac{\sqrt3}3\)</td><td>1</td><td>\(\sqrt3\)</td><td>no existe</td></tr></table>
+<div class="box key"><b class="t">Truco para recordar</b>El seno va: \(\frac{\sqrt0}2,\ \frac{\sqrt1}2,\ \frac{\sqrt2}2,\ \frac{\sqrt3}2,\ \frac{\sqrt4}2\). El coseno es la misma fila al revés. La tangente es seno entre coseno.</div>
+<div class="box why"><b class="t">¿Por qué la tangente de 90° no existe?</b>\(\tan 90^\circ = \frac{\operatorname{sen}90^\circ}{\cos 90^\circ} = \frac10\), y no se puede dividir entre cero.</div>
+<div class="ex"><div class="h">Ir del lado al ángulo</div><p>Un triángulo tiene hipotenusa 16 y el lado opuesto a \(\theta\) mide 8. \(\operatorname{sen}\theta = \frac{8}{16}=\frac12\). En la tabla, el seno vale \(\frac12\) en \(30^\circ\), así que \(\theta = \frac\pi6\).</p></div>
+<details class="check"><summary>Compruébalo: si \(\operatorname{sen}\theta = \frac5{13}\) y \(\theta\) es agudo, ¿cuánto valen \(\cos\theta\) y \(\tan\theta\)?</summary><p>op 5, hip 13 → ady \(=\sqrt{169-25}=12\). \(\cos\theta=\frac{12}{13}\), \(\tan\theta=\frac5{12}\).</p></details>
+<div class="box bridge"><b class="t">Hacia la lección 2</b>Todo esto funciona solo para ángulos entre 0° y 90°, porque necesitamos un triángulo rectángulo. Pero, ¿qué significa \(\operatorname{sen}150^\circ\)? No hay triángulo rectángulo con un ángulo de 150°. En la siguiente lección resolvemos eso con una idea muy elegante: poner el triángulo dentro de un círculo.</div>
+</section>
+
+<!-- ============================ LECCIÓN 2 ============================ -->
+<section class="lesson" id="l2" style="--acc:var(--c2)" data-mod="m2">
+<header><span class="tag">Lección 2 · Módulo 4.2</span><h2>Del triángulo al círculo: funciones de cualquier ángulo</h2></header>
+<div class="box bridge"><b class="t">Conexión</b>En la lección 1 el seno era "opuesto sobre hipotenusa", y solo servía para ángulos agudos. Ahora vamos a poner ese mismo triángulo dentro de un círculo de radio 1. Vas a ver que el seno y el coseno se convierten en algo muy simple: <b>las coordenadas de un punto</b>. Y eso funciona para cualquier ángulo.</div>
+
+<h3 id="l2-pos">Posición normal</h3>
+<p>Para comparar ángulos, los dibujamos todos igual en el plano cartesiano: el vértice en el origen \((0,0)\) y el lado inicial sobre el eje \(x\) positivo (hacia la derecha). Esto se llama <b>posición normal</b>. Así, lo único que distingue un ángulo de otro es <b>dónde termina</b> el lado terminal.</p>
+
+<h3 id="l2-circ">El círculo unitario: el truco que lo cambia todo</h3>
+<p>Dibuja un círculo de radio 1 con centro en el origen (el <b>círculo unitario</b>). El lado terminal de \(\theta\) corta ese círculo en un punto \(P=(x,y)\). Baja una línea vertical desde \(P\) hasta el eje \(x\): se forma un triángulo rectángulo con</p>
+<ul><li>hipotenusa \(=1\) (el radio),</li><li>cateto adyacente \(=x\) (horizontal),</li><li>cateto opuesto \(=y\) (vertical).</li></ul>
+<p>Ahora usa las definiciones de la lección 1:</p>
+<div class="formula">\[\cos\theta = \frac{ady}{hip} = \frac{x}{1} = x \qquad\qquad \operatorname{sen}\theta = \frac{op}{hip} = \frac{y}{1} = y\]</div>
+<div class="box key"><b class="t">La idea central del capítulo</b>\(P = (\cos\theta,\ \operatorname{sen}\theta)\). El <b class="c1">coseno es la coordenada x</b> (qué tan a la derecha o izquierda está el punto) y el <b class="c2">seno es la coordenada y</b> (qué tan arriba o abajo).</div>
+<div class="box why"><b class="t">¿Por qué esto resuelve el problema?</b>Para un ángulo de 150°, el punto \(P\) sigue existiendo en el círculo: simplemente está a la izquierda (su \(x\) es negativa). Así, ahora <b>definimos</b> \(\cos\theta=x\) y \(\operatorname{sen}\theta=y\) para cualquier ángulo. Para ángulos agudos coincide con la lección 1; para los demás, es la extensión natural.</div>
+<div class="widget" id="w-uc"><b>Pruébalo:</b> mueve el ángulo y mira el punto \(P\).
+<div class="grid"><canvas id="uc" width="600" height="600"></canvas>
+<div><input type="range" id="ucR" min="0" max="360" step="15" value="150" aria-label="ángulo"><div id="ucT"></div></div></div></div>
+<p>Las otras cuatro funciones se definen a partir de seno y coseno:</p>
+<div class="formula">\[\tan\theta=\frac{\operatorname{sen}\theta}{\cos\theta}\quad \cot\theta=\frac{\cos\theta}{\operatorname{sen}\theta}\quad \sec\theta=\frac1{\cos\theta}\quad \csc\theta=\frac1{\operatorname{sen}\theta}\]</div>
+<div class="box why"><b class="t">¿Por qué \(\tan = \frac{\operatorname{sen}}{\cos}\)?</b>\(\frac{\operatorname{sen}}{\cos}=\frac{op/hip}{ady/hip}=\frac{op}{ady}\): la hipotenusa se cancela y queda la tangente de la lección 1.</div>
+<div class="box warn"><b class="t">Cuidado</b>Algunas no existen para ciertos ángulos. En \(\theta=\frac\pi2\), \(\cos=0\), así que \(\tan\frac\pi2=\frac10\) no está definida.</div>
+
+<h3 id="l2-cot">Ángulos coterminales: dar vueltas no cambia nada</h3>
+<p>\(\frac\pi3\) y \(\frac\pi3+2\pi=\frac{7\pi}3\) terminan en el mismo lugar: el segundo da una vuelta completa de más. Se llaman <b>coterminales</b>. En general, \(\theta\) y \(\theta + 2\pi k\) (con \(k\) entero: …, −2, −1, 0, 1, 2, …) son coterminales.</p>
+<div class="box why"><b class="t">¿Por qué importa?</b>Si terminan en el mismo punto \(P\), tienen el mismo seno y coseno. Por eso las funciones trigonométricas <b>se repiten cada \(2\pi\)</b>. Esta repetición es la que dibuja las ondas de la lección 4 y la que da infinitas soluciones en la lección 5.</div>
+
+<h3 id="l2-cuad">Cuadrantes y signos</h3>
+<p>Los ejes dividen el plano en cuatro <b>cuadrantes</b>, numerados I, II, III, IV en sentido antihorario empezando arriba a la derecha. Como \(\cos\theta = x\) y \(\operatorname{sen}\theta = y\), el signo de cada función depende solo de en qué cuadrante cae \(P\):</p>
+<table><tr><th></th><th>I (0° a 90°)</th><th>II (90° a 180°)</th><th>III (180° a 270°)</th><th>IV (270° a 360°)</th></tr>
+<tr><td>x = cos</td><td>+</td><td>−</td><td>−</td><td>+</td></tr><tr><td>y = sen</td><td>+</td><td>+</td><td>−</td><td>−</td></tr>
+<tr><td>tan = y/x</td><td>+</td><td>−</td><td>+</td><td>−</td></tr></table>
+<p>Secante tiene el signo del coseno, cosecante el del seno y cotangente el de la tangente.</p>
+<div class="box key"><b class="t">Para recordar</b>"<b>T</b>odas – <b>S</b>eno – <b>T</b>angente – <b>C</b>oseno": en I todas son positivas, en II solo el seno, en III solo la tangente, en IV solo el coseno (con sus recíprocas). Pero si te olvidas, piensa en el punto: ¿está a la derecha o a la izquierda? ¿Arriba o abajo?</div>
+
+<h3 id="l2-ref">El ángulo de referencia: volver al triángulo</h3>
+<p>Aquí conectamos todo con la lección 1. El <b>ángulo de referencia</b> \(\bar\theta\) es el ángulo agudo que forma el lado terminal con el <b>eje \(x\)</b> (el más cercano, nunca con el eje \(y\)). Es un ángulo entre 0 y \(\frac\pi2\), o sea, un ángulo "de triángulo".</p>
+<table><tr><th>Si θ está en</th><th>\(\bar\theta\)</th><th>Idea</th></tr>
+<tr><td>I</td><td>\(\theta\)</td><td>ya está medido desde el eje x</td></tr><tr><td>II</td><td>\(\pi-\theta\)</td><td>lo que le falta para llegar a π (180°)</td></tr>
+<tr><td>III</td><td>\(\theta-\pi\)</td><td>lo que se pasó de π</td></tr><tr><td>IV</td><td>\(2\pi-\theta\)</td><td>lo que le falta para completar la vuelta</td></tr></table>
+<div class="box key"><b class="t">La regla de oro</b>\(\ \text{trig}(\theta) = \pm\,\text{trig}(\bar\theta)\). El <b>número</b> lo sacas de la tabla de notables con \(\bar\theta\). El <b>signo</b> lo decide el cuadrante de \(\theta\).</div>
+<div class="box why"><b class="t">¿Por qué funciona?</b>El punto de \(\theta\) es un reflejo (como en un espejo) del punto de \(\bar\theta\). Está a la misma distancia de los ejes, así que \(|x|\) y \(|y|\) son iguales; solo cambian los signos según el lado donde quedó.</div>
+<div class="ex"><div class="h">Ejemplo: las seis razones de \(\theta=\frac{5\pi}6\)</div><ol class="steps">
+<li>Ubica: \(\frac{5\pi}6 = 5\cdot30^\circ=150^\circ\). Está entre 90° y 180°: cuadrante II.</li>
+<li>Referencia: \(\bar\theta=\pi-\frac{5\pi}6=\frac\pi6\) (30°).</li>
+<li>Valores de 30°: sen \(\frac12\), cos \(\frac{\sqrt3}2\), tan \(\frac{\sqrt3}3\).</li>
+<li>Signos en II: solo sen y csc positivas. Entonces \(\operatorname{sen}\frac{5\pi}6=\frac12,\ \cos\frac{5\pi}6=-\frac{\sqrt3}2,\ \tan\frac{5\pi}6=-\frac{\sqrt3}3\), \(\cot=-\sqrt3,\ \sec=-\frac2{\sqrt3},\ \csc=2\).</li></ol></div>
+<div class="ex"><div class="h">Ejemplo: \(\theta=\frac{7\pi}4\)</div><p>\(7\cdot45^\circ=315^\circ\) → cuadrante IV. \(\bar\theta=2\pi-\frac{7\pi}4=\frac\pi4\). En IV solo cos y sec son positivas: \(\operatorname{sen}=-\frac{\sqrt2}2,\ \cos=\frac{\sqrt2}2,\ \tan=-1,\ \cot=-1,\ \sec=\sqrt2,\ \csc=-\sqrt2\).</p></div>
+<div class="ex"><div class="h">Ejemplo: \(\theta\) en el cuadrante IV y \(\cos\theta=\frac{\sqrt3}3\). Hallar \(\tan\theta\).</div><ol class="steps">
+<li>Dibuja el triángulo del ángulo de referencia (lección 1): ady \(\sqrt3\), hip 3.</li><li>Pitágoras: op \(=\sqrt{9-3}=\sqrt6\).</li>
+<li>Valor: \(\frac{\sqrt6}{\sqrt3}=\sqrt2\).</li><li>Signo: en IV la tangente es negativa. \(\tan\theta=-\sqrt2\).</li></ol></div>
+<h4>Ángulos sobre los ejes (cuadrantales)</h4>
+<p>No forman triángulo, pero se leen directamente del punto: en \(0\) el punto es \((1,0)\); en \(\frac\pi2\), \((0,1)\); en \(\pi\), \((-1,0)\); en \(\frac{3\pi}2\), \((0,-1)\). Así \(\cos\pi = -1\), \(\operatorname{sen}\frac{3\pi}2=-1\), etc.</p>
+<details class="check"><summary>Compruébalo: \(\theta=\frac{7\pi}6\). ¿Cuadrante, \(\bar\theta\), seno y coseno?</summary><p>\(210^\circ\), cuadrante III, \(\bar\theta=\frac\pi6\). \(\operatorname{sen}=-\frac12\), \(\cos=-\frac{\sqrt3}2\) (en III ambos negativos).</p></details>
+<div class="box bridge"><b class="t">Hacia la lección 3</b>Ahora sabemos que \(P=(\cos\theta,\operatorname{sen}\theta)\) está en un círculo de radio 1. Pero un punto en ese círculo cumple una ecuación muy famosa… y esa ecuación nos va a regalar una relación entre seno y coseno que vale <b>siempre</b>. Eso es una identidad.</div>
+</section>
+
+<!-- ============================ LECCIÓN 3 ============================ -->
+<section class="lesson" id="l3" style="--acc:var(--c3)" data-mod="m3">
+<header><span class="tag">Lección 3 · Módulo 4.3</span><h2>Identidades: las reglas que siempre se cumplen</h2></header>
+<div class="box bridge"><b class="t">Conexión</b>En la lección 2 descubrimos que \(\cos\theta\) y \(\operatorname{sen}\theta\) son las coordenadas de un punto del círculo unitario. Las identidades salen de ahí: son relaciones entre las funciones que valen para <b>cualquier</b> ángulo. Sirven para simplificar, demostrar, calcular valores y (en la lección 5) resolver ecuaciones.</div>
+
+<h3 id="l3-que">¿Identidad o ecuación?</h3>
+<p>Una <b>identidad</b> es una igualdad verdadera para todos los valores donde está definida, como \((a+b)^2=a^2+2ab+b^2\). Una <b>ecuación</b> solo es verdadera para algunos valores, como \(2x=6\), que solo vale si \(x=3\). En trigonometría: \(\operatorname{sen}^2x+\cos^2x=1\) es identidad; \(\operatorname{sen}x=\frac12\) es ecuación.</p>
+
+<h3 id="l3-rec">Recíprocas: lo que ya sabes</h3>
+<div class="formula">\[\csc t=\frac{1}{\operatorname{sen}t}\quad \sec t=\frac1{\cos t}\quad \cot t=\frac1{\tan t}\quad \tan t=\frac{\operatorname{sen}t}{\cos t}\quad \cot t=\frac{\cos t}{\operatorname{sen}t}\]</div>
+<p>Son exactamente las definiciones de la lección 2. Su gran utilidad: <b>cualquier expresión se puede escribir solo con seno y coseno</b>. Cuando no sepas qué hacer, hazlo.</p>
+
+<h3 id="l3-pit">Pitagóricas: el círculo hecho fórmula</h3>
+<p>Todo punto \((x,y)\) del círculo unitario cumple \(x^2+y^2=1\). ¿Por qué? Es Pitágoras en el triángulo con catetos \(x\), \(y\) e hipotenusa 1. Pero en la lección 2 vimos que \(x=\cos\theta\) y \(y=\operatorname{sen}\theta\). Sustituyendo:</p>
+<div class="formula">\[\boxed{\operatorname{sen}^2\theta+\cos^2\theta=1}\qquad(\text{P1})\]</div>
+<p>(Notación: \(\operatorname{sen}^2\theta\) significa \((\operatorname{sen}\theta)^2\).) Esta es la identidad más importante del curso. Las otras dos se fabrican dividiendo:</p>
+<ul><li>Divide P1 entre \(\cos^2\theta\): \(\frac{\operatorname{sen}^2}{\cos^2}+\frac{\cos^2}{\cos^2}=\frac1{\cos^2}\) → \(\tan^2\theta+1=\sec^2\theta\) (P2).</li>
+<li>Divide P1 entre \(\operatorname{sen}^2\theta\): → \(1+\cot^2\theta=\csc^2\theta\) (P3).</li></ul>
+<div class="box key"><b class="t">Despejes que vas a usar</b>\(\operatorname{sen}^2\theta=1-\cos^2\theta\) · \(\cos^2\theta=1-\operatorname{sen}^2\theta\) · \(1-\csc^2\theta=-\cot^2\theta\) · \(1-\sec^2\theta=-\tan^2\theta\) · \(\cos\theta=\pm\sqrt{1-\operatorname{sen}^2\theta}\), donde el signo \(\pm\) lo decide el cuadrante (lección 2).</div>
+<div class="widget"><b>Pruébalo:</b> elige un ángulo cualquiera. Seno y coseno cambian, pero la suma de sus cuadrados no.
+<label>θ = <span id="p1d">40</span>° <input type="range" id="p1r" min="0" max="360" value="40"></label><div id="p1t" style="font-size:17px;margin-top:6px"></div></div>
+<div class="ex"><div class="h">Ejemplo: \(\operatorname{sen}x=-\frac35\) y \(x\) en el cuadrante IV. Hallar \(\tan x\).</div><ol class="steps">
+<li>Necesitamos \(\tan=\frac{\operatorname{sen}}{\cos}\); nos falta el coseno.</li>
+<li>P1: \(\cos x=\pm\sqrt{1-\frac9{25}}=\pm\frac45\). En IV el coseno es positivo: \(\cos x=\frac45\).</li>
+<li>\(\tan x=\frac{-3/5}{4/5}=-\frac34\). (Comprobación: en IV la tangente es negativa ✓.)</li></ol></div>
+
+<h3 id="l3-dem">Cómo demostrar una identidad</h3>
+<ol class="steps"><li>Empieza por el lado que se vea más complicado.</li><li>Escríbelo en senos y cosenos.</li>
+<li>Busca \(\operatorname{sen}^2+\cos^2\) o algún despeje de P1, P2, P3.</li><li>Simplifica (factoriza, suma fracciones, cancela) hasta llegar al otro lado.</li></ol>
+<div class="ex"><div class="h">Ejemplo: \((1-\cos^2x)(1+\cot^2x)=1\)</div>
+<p>\(1-\cos^2x=\operatorname{sen}^2x\) (de P1) y \(1+\cot^2x=\csc^2x\) (P3). Queda \(\operatorname{sen}^2x\cdot\frac{1}{\operatorname{sen}^2x}=1\) ✓.</p></div>
+<div class="ex"><div class="h">Ejemplo: \(1-\frac{1}{\operatorname{sen}^2x}\)</div>
+<p>\(\frac{1}{\operatorname{sen}^2x}=\csc^2x\), así que la expresión es \(1-\csc^2x\). De P3, \(\csc^2x=1+\cot^2x\), entonces \(1-(1+\cot^2x)=-\cot^2x\).</p></div>
+<div class="ex"><div class="h">Ejemplo: \(\frac{1-\operatorname{sen}x}{\cos x}=\frac{\cos x}{1+\operatorname{sen}x}\)</div>
+<p>Multiplicamos en cruz: \((1-\operatorname{sen}x)(1+\operatorname{sen}x)\overset?=\cos^2x\). A la izquierda hay una diferencia de cuadrados: \(1-\operatorname{sen}^2x\overset?=\cos^2x\). Eso es P1 despejada ✓.</p></div>
+
+<h3 id="l3-suma">Suma y resta de ángulos</h3>
+<div class="box warn"><b class="t">Cuidado</b>\(\operatorname{sen}(\alpha+\beta)\) <b>no</b> es \(\operatorname{sen}\alpha+\operatorname{sen}\beta\). Prueba con \(\alpha=\beta=45^\circ\): \(\operatorname{sen}90^\circ=1\), pero \(\frac{\sqrt2}2+\frac{\sqrt2}2=\sqrt2\approx1{,}41\).</div>
+<div class="formula">\[\operatorname{sen}(\alpha\pm\beta)=\operatorname{sen}\alpha\cos\beta\pm\operatorname{sen}\beta\cos\alpha\]
+\[\cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\operatorname{sen}\alpha\operatorname{sen}\beta\]
+\[\tan(\alpha\pm\beta)=\frac{\tan\alpha\pm\tan\beta}{1\mp\tan\alpha\tan\beta}\]</div>
+<div class="box key"><b class="t">Para recordarlas</b>Seno: <b>mezcla</b> (sen·cos + sen·cos) y conserva el signo. Coseno: <b>agrupa</b> (cos·cos y sen·sen) y <b>invierte</b> el signo.</div>
+<div class="ex"><div class="h">Para qué sirven: valores fuera de la tabla</div>
+<p>\(\operatorname{sen}75^\circ=\operatorname{sen}(45^\circ+30^\circ)=\frac{\sqrt2}2\cdot\frac{\sqrt3}2+\frac12\cdot\frac{\sqrt2}2=\frac{\sqrt6+\sqrt2}4\).</p></div>
+
+<h3 id="l3-doble">Ángulo doble</h3>
+<p>Si en las fórmulas de suma pones \(\beta=\alpha\), obtienes:</p>
+<div class="formula">\[\operatorname{sen}2\alpha=2\operatorname{sen}\alpha\cos\alpha\qquad \cos2\alpha=\cos^2\alpha-\operatorname{sen}^2\alpha\]</div>
+<div class="box why"><b class="t">¿Por qué?</b>\(\operatorname{sen}(\alpha+\alpha)=\operatorname{sen}\alpha\cos\alpha+\operatorname{sen}\alpha\cos\alpha\): dos términos iguales que se suman. Y usando P1 en \(\cos2\alpha\) salen otras dos versiones: \(1-2\operatorname{sen}^2\alpha\) y \(2\cos^2\alpha-1\).</div>
+<div class="ex"><div class="h">Ejemplo: \(\operatorname{sen}x=\frac3{\sqrt{13}}\), \(x\) en el cuadrante II. Hallar \(\operatorname{sen}2x\) y \(\cos2x\).</div><ol class="steps">
+<li>Las fórmulas piden seno y coseno; falta el coseno. P1: \(\cos^2x=1-\frac9{13}=\frac4{13}\).</li>
+<li>En II el coseno es negativo: \(\cos x=-\frac2{\sqrt{13}}\).</li>
+<li>\(\operatorname{sen}2x=2\cdot\frac3{\sqrt{13}}\cdot\left(-\frac2{\sqrt{13}}\right)=-\frac{12}{13}\).</li>
+<li>\(\cos2x=\frac4{13}-\frac9{13}=-\frac5{13}\).</li></ol></div>
+
+<h3 id="l3-sim">Simetrías</h3>
+<p>Vuelve al círculo. El ángulo \(-t\) es el reflejo de \(t\) respecto al eje \(x\): la \(x\) no cambia y la \(y\) cambia de signo. El ángulo \(\pi-t\) es el reflejo respecto al eje \(y\): la \(y\) no cambia y la \(x\) cambia de signo.</p>
+<div class="formula">\[\operatorname{sen}(-t)=-\operatorname{sen}t\quad\cos(-t)=\cos t\quad\tan(-t)=-\tan t\]
+\[\operatorname{sen}(\pi-t)=\operatorname{sen}t\quad\cos(\pi-t)=-\cos t\quad\tan(\pi-t)=-\tan t\]</div>
+<div class="box bridge"><b class="t">Conexión</b>\(\operatorname{sen}(\pi-t)=\operatorname{sen}t\) es exactamente la regla del ángulo de referencia en el cuadrante II que usaste en la lección 2. Todo es la misma idea vista desde otro ángulo.</div>
+<details class="check"><summary>Compruébalo: demuestra que \(\sec x-\cos x=\operatorname{sen}x\tan x\).</summary>
+<p>\(\frac1{\cos x}-\cos x=\frac{1-\cos^2x}{\cos x}=\frac{\operatorname{sen}^2x}{\cos x}=\operatorname{sen}x\cdot\frac{\operatorname{sen}x}{\cos x}=\operatorname{sen}x\tan x\) ✓.</p></details>
+<div class="box bridge"><b class="t">Hacia la lección 4</b>Las simetrías dicen que \(\cos\) "no cambia" al cambiar de signo el ángulo, y que el seno sí. Eso se va a <b>ver</b> en sus gráficas. Y la repetición cada \(2\pi\) de la lección 2 va a dibujar una onda. Vamos a graficar.</div>
+</section>
+
+<!-- ============================ LECCIÓN 4 ============================ -->
+<section class="lesson" id="l4" style="--acc:var(--c4)" data-mod="m4">
+<header><span class="tag">Lección 4 · Módulo 4.4</span><h2>Gráficas: el círculo desenrollado</h2></header>
+<div class="box bridge"><b class="t">Conexión</b>Sabemos que \(\operatorname{sen}\theta\) es la altura del punto \(P\) en el círculo. Si ponemos el ángulo en el eje horizontal y esa altura en el vertical, mientras el punto da vueltas, obtenemos la gráfica del seno. Es literalmente el círculo "desenrollado".</div>
+
+<h3 id="l4-sen">La gráfica del seno</h3>
+<p>Sigue la altura del punto mientras gira:</p>
+<table><tr><th>t</th><th>0</th><th>\(\frac\pi2\)</th><th>\(\pi\)</th><th>\(\frac{3\pi}2\)</th><th>\(2\pi\)</th></tr>
+<tr><td>dónde está P</td><td>a la derecha</td><td>arriba</td><td>a la izquierda</td><td>abajo</td><td>a la derecha otra vez</td></tr>
+<tr><td>sen t (altura)</td><td>0</td><td>1</td><td>0</td><td>−1</td><td>0</td></tr></table>
+<p>Uniendo esos puntos con curvas suaves sale una onda que sube, baja y vuelve a empezar. Después de \(2\pi\) el punto repite su camino (coterminales, lección 2), así que la onda se repite: su <b>período</b> es \(2\pi\).</p>
+<ul><li><b>Dominio</b> \((-\infty,\infty)\): cualquier número es un ángulo.</li>
+<li><b>Rango</b> \([-1,1]\): la altura en un círculo de radio 1 nunca pasa de 1 ni baja de −1.</li>
+<li><b>Impar</b>: \(\operatorname{sen}(-x)=-\operatorname{sen}x\) (lección 3). La gráfica es simétrica respecto al origen.</li></ul>
+
+<h3 id="l4-cos">La gráfica del coseno</h3>
+<p>Ahora seguimos la posición horizontal \(x\): empieza en 1 (el punto está a la derecha), baja a 0 en \(\frac\pi2\), a −1 en \(\pi\), vuelve a 0 en \(\frac{3\pi}2\) y a 1 en \(2\pi\). Es la misma onda que el seno, pero empieza en el máximo. Mismo dominio, rango y período. Es <b>par</b>: \(\cos(-x)=\cos x\), simétrica respecto al eje \(y\).</p>
+<div class="box key"><b class="t">Para dibujar de memoria</b>Divide un ciclo en 4 partes iguales. Seno: \(0,\ 1,\ 0,\ -1,\ 0\). Coseno: \(1,\ 0,\ -1,\ 0,\ 1\).</div>
+
+<h3 id="l4-trans">Estirar y mover la onda: \(y=a\operatorname{sen}d(x-h)\)</h3>
+<p>Cada letra hace una sola cosa:</p>
+<div class="widget"><b>Pruébalo:</b> mueve a, d y h y mira qué cambia. La línea gris es \(\operatorname{sen}x\) original.
+<canvas id="wv" width="900" height="380" style="width:100%;max-width:none;aspect-ratio:auto;height:auto"></canvas>
+<label>a (amplitud) = <span id="aV"></span> <input type="range" id="aR" min="0.5" max="3" step="0.5" value="2"></label>
+<label>d = <span id="dV"></span> → período 2π/d = <span id="pV"></span> <input type="range" id="dR" min="0.5" max="3" step="0.5" value="1"></label>
+<label>h (desfase) = <span id="hV"></span> <input type="range" id="hR" min="-6" max="6" step="1" value="0"></label>
+<div id="fV" style="font-size:18px;margin-top:6px"></div></div>
+<h4>a: amplitud</h4>
+<p>Multiplica todas las alturas. Si \(\operatorname{sen}\) va de −1 a 1, \(a\operatorname{sen}\) va de \(-a\) a \(a\). El rango pasa a ser \([-a,a]\).</p>
+<h4>d: cambia el período</h4>
+<div class="formula">\[P=\frac{2\pi}{d}\]</div>
+<div class="box why"><b class="t">¿Por qué?</b>El seno completa un ciclo cuando lo que está adentro recorre de 0 a \(2\pi\). Con \(\operatorname{sen}(dx)\), eso pasa cuando \(dx=2\pi\), o sea \(x=\frac{2\pi}d\). Si \(d=2\), la onda va "el doble de rápido" y el ciclo dura \(\pi\).</div>
+<h4>h: desfase (corrimiento)</h4>
+<p>El ciclo empieza donde lo de adentro vale 0: \(x-h=0\Rightarrow x=h\). Si \(h>0\) la onda se mueve a la derecha; si \(h<0\), a la izquierda.</p>
+<div class="box warn"><b class="t">Cuidado (el error más común)</b>Para leer \(h\) hay que <b>factorizar \(d\) primero</b>. En \(4\operatorname{sen}\left(3x+\frac\pi2\right)\) el desfase no es \(-\frac\pi2\). Como \(\frac\pi2=3\cdot\frac\pi6\): \(3x+\frac\pi2=3\left(x+\frac\pi6\right)\), así que \(h=-\frac\pi6\).</div>
+<h4>Receta para dibujar un ciclo</h4>
+<ol class="steps"><li>Escribe la función como \(a\operatorname{sen}d(x-h)\) (factoriza \(d\)).</li><li>Lee \(a\), \(d\), \(h\).</li>
+<li>Período \(P=\frac{2\pi}d\). El ciclo va de \(x=h\) a \(x=h+P\).</li><li>Divide ese intervalo en 4 partes iguales (de \(\frac P4\) cada una).</li>
+<li>Pon el patrón: seno \(0,a,0,-a,0\); coseno \(a,0,-a,0,a\).</li></ol>
+<div class="ex"><div class="h">Ejemplo: \(f(x)=4\operatorname{sen}\left(3x+\frac\pi2\right)\)</div><ol class="steps">
+<li>\(f(x)=4\operatorname{sen}3\left(x+\frac\pi6\right)\): \(a=4,\ d=3,\ h=-\frac\pi6\).</li>
+<li>\(P=\frac{2\pi}3\). Ciclo: de \(-\frac\pi6\) a \(-\frac\pi6+\frac{4\pi}6=\frac\pi2\).</li>
+<li>Cuartos de \(\frac\pi6\): puntos \(-\frac\pi6,\ 0,\ \frac\pi6,\ \frac\pi3,\ \frac\pi2\) con valores \(0,\ 4,\ 0,\ -4,\ 0\).</li></ol></div>
+<div class="ex"><div class="h">Ejemplo al revés: de la gráfica a la fórmula</div>
+<p>Te muestran un ciclo de seno que empieza en \(x=\frac\pi6\) subiendo desde 0, llega a 3, baja a −3 y termina en \(x=\frac{7\pi}6\).</p><ol class="steps">
+<li>Amplitud: la altura máxima, \(a=3\).</li><li>Período: largo del ciclo, \(P=\frac{7\pi}6-\frac\pi6=\pi\). Entonces \(d=\frac{2\pi}P=2\).</li>
+<li>Empieza en \(h=\frac\pi6\): \(f(x)=3\operatorname{sen}2\left(x-\frac\pi6\right)\).</li>
+<li>Si las opciones vienen sin factorizar, distribuye: \(2\left(x-\frac\pi6\right)=2x-\frac\pi3\). Así \(f(x)=3\operatorname{sen}\left(2x-\frac\pi3\right)\).</li></ol>
+<div class="box key"><b class="t">Clave</b>Si la onda empieza en 0 y <b>sube</b>, es seno. Si empieza en su <b>máximo</b>, es coseno.</div></div>
+
+<h3 id="l4-tan">La tangente</h3>
+<p>\(\tan x=\frac{\operatorname{sen}x}{\cos x}\) no existe donde \(\cos x=0\): en \(x=\pm\frac\pi2,\ \pm\frac{3\pi}2,\dots\) Ahí la gráfica tiene <b>asíntotas</b>: líneas verticales a las que se acerca sin tocarlas. Cerca de \(\frac\pi2\), el seno es casi 1 y el coseno casi 0, y dividir entre algo diminuto da números enormes: por eso la curva se dispara. Su rango es todo \(\mathbb R\) y su período es \(\pi\).</p>
+<details class="check"><summary>Compruébalo: amplitud, período, desfase y ciclo de \(y=3\operatorname{sen}\left(2x-\frac\pi2\right)\).</summary><p>\(2x-\frac\pi2=2\left(x-\frac\pi4\right)\). \(a=3,\ P=\pi,\ h=\frac\pi4\). Ciclo: \(\left[\frac\pi4,\frac{5\pi}4\right]\).</p></details>
+<div class="box bridge"><b class="t">Hacia la lección 5</b>Mira la onda del seno y traza una línea horizontal a la altura \(\frac12\). La corta en <b>dos</b> puntos en cada ciclo, e infinitas veces en total. Eso es exactamente resolver la ecuación \(\operatorname{sen}x=\frac12\).</div>
+</section>
+
+<!-- ============================ LECCIÓN 5 ============================ -->
+<section class="lesson" id="l5" style="--acc:var(--c5)" data-mod="m5">
+<header><span class="tag">Lección 5 · Módulo 4.5</span><h2>Ecuaciones: encontrar los ángulos</h2></header>
+<div class="box bridge"><b class="t">Conexión</b>Hasta ahora íbamos del ángulo al valor: "dame \(\theta\) y te digo su seno". Una ecuación pide lo contrario: "el seno vale \(\frac12\); ¿qué ángulos son?". Para eso usamos <b>todo</b>: la tabla de notables (lección 1), los cuadrantes y el ángulo de referencia (lección 2), las identidades (lección 3) y la periodicidad (lección 4).</div>
+
+<h3 id="l5-dos">Por qué casi siempre hay dos soluciones</h3>
+<p>Resolver \(\operatorname{sen}\theta=c\) es buscar los puntos del círculo cuya <b>altura</b> es \(c\). Una línea horizontal a altura \(c\) corta el círculo en dos puntos (uno a cada lado), salvo que \(c=1\) o \(c=-1\) (la toca en uno solo) o que \(|c|>1\) (no lo toca: <b>no hay solución</b>).</p>
+<p>Para \(\cos\theta=c\) es igual, pero con una línea <b>vertical</b> en \(x=c\).</p>
+
+<h3 id="l5-met">El método, paso a paso</h3>
+<p>En la lección 2 sacábamos \(\bar\theta\) a partir de \(\theta\). Ahora despejamos al revés:</p>
+<table><tr><th>Cuadrante</th><th>I</th><th>II</th><th>III</th><th>IV</th></tr><tr><td>\(\theta=\)</td><td>\(\bar\theta\)</td><td>\(\pi-\bar\theta\)</td><td>\(\pi+\bar\theta\)</td><td>\(2\pi-\bar\theta\)</td></tr></table>
+<ol class="steps">
+<li><b>Despeja</b> la función: deja \(\operatorname{sen}\theta=c\) o \(\cos\theta=c\).</li>
+<li>Si \(|c|>1\): no hay solución (el rango es \([-1,1]\)).</li>
+<li>Con \(|c|\) (sin el signo), busca \(\bar\theta\) en la tabla de notables.</li>
+<li>Con el <b>signo</b> de \(c\), elige los dos cuadrantes: sen + → I y II; sen − → III y IV; cos + → I y IV; cos − → II y III.</li>
+<li>Aplica las fórmulas de la tabla. Si piden <b>todas</b> las soluciones, suma \(2\pi k\) (coterminales).</li></ol>
+<div class="ex"><div class="h">\(\operatorname{sen}\theta=\frac{\sqrt3}2\) en \([0,2\pi)\)</div><p>\(\bar\theta=\frac\pi3\). Positivo → I y II: \(\theta=\frac\pi3\) y \(\theta=\pi-\frac\pi3=\frac{2\pi}3\).</p></div>
+<div class="ex"><div class="h">\(\cos\theta=-\frac{\sqrt2}2\)</div><p>\(\bar\theta=\frac\pi4\). Negativo → II y III: \(\frac{3\pi}4\) y \(\frac{5\pi}4\).</p>
+<div class="box warn"><b class="t">Cuidado</b>No respondas \(\frac\pi4\): su coseno es positivo. \(\bar\theta\) da el tamaño; el signo da el cuadrante.</div></div>
+<div class="ex"><div class="h">\(\cos\theta=-1\)</div><p>El único punto con \(x=-1\) es \((-1,0)\): \(\theta=\pi\).</p></div>
+
+<h3 id="l5-cuadr">Ecuaciones con cuadrados: no olvides el ±</h3>
+<div class="ex"><div class="h">\(4\operatorname{sen}^2x-3=0\) en \([0,2\pi)\)</div><ol class="steps">
+<li>Despeja: \(\operatorname{sen}^2x=\frac34\).</li>
+<li>Raíz, ¡con los dos signos! \(\operatorname{sen}x=\pm\frac{\sqrt3}2\).</li>
+<li>\(\bar\theta=\frac\pi3\). Con \(+\): I y II → \(\frac\pi3,\frac{2\pi}3\). Con \(-\): III y IV → \(\frac{4\pi}3,\frac{5\pi}3\).</li>
+<li>Cuatro soluciones: \(\frac\pi3,\ \frac{2\pi}3,\ \frac{4\pi}3,\ \frac{5\pi}3\).</li></ol></div>
+<div class="ex"><div class="h">\(2\operatorname{sen}^2\theta+3\operatorname{sen}\theta-2=0\) (cuadrática)</div><ol class="steps">
+<li>Llama \(u=\operatorname{sen}\theta\): \(2u^2+3u-2=0\), que se factoriza \((2u-1)(u+2)=0\).</li>
+<li>\(u=\frac12\) o \(u=-2\).</li><li>\(\operatorname{sen}\theta=\frac12\) → \(\frac\pi6,\ \frac{5\pi}6\).</li>
+<li>\(\operatorname{sen}\theta=-2\) → imposible, se descarta.</li></ol></div>
+
+<h3 id="l5-fact">Factorizar, nunca dividir</h3>
+<div class="box warn"><b class="t">La regla</b>Si la función aparece en todos los términos, <b>no dividas</b> entre ella: perderías las soluciones donde vale 0. Pásalo todo a un lado y <b>factoriza</b>. Un producto es cero si alguno de sus factores es cero.</div>
+<div class="ex"><div class="h">\(\cos\theta-2\cos^3\theta=0\)</div><ol class="steps">
+<li>Factor común: \(\cos\theta\,(1-2\cos^2\theta)=0\).</li>
+<li>\(\cos\theta=0\) → \(\frac\pi2,\ \frac{3\pi}2\).</li>
+<li>\(1-2\cos^2\theta=0\) → \(\cos\theta=\pm\frac{\sqrt2}2\) → \(\frac\pi4,\frac{7\pi}4\) (positivo) y \(\frac{3\pi}4,\frac{5\pi}4\) (negativo).</li>
+<li>Seis soluciones. Si hubieras dividido entre \(\cos\theta\), te faltarían \(\frac\pi2\) y \(\frac{3\pi}2\).</li></ol></div>
+<div class="ex"><div class="h">Con ángulo doble: \(\sqrt2\operatorname{sen}2x=2\operatorname{sen}x\)</div><ol class="steps">
+<li>Identidad de la lección 3: \(\operatorname{sen}2x=2\operatorname{sen}x\cos x\). Queda \(2\sqrt2\operatorname{sen}x\cos x=2\operatorname{sen}x\).</li>
+<li>Todo a un lado y factoriza: \(2\operatorname{sen}x\left(\sqrt2\cos x-1\right)=0\).</li>
+<li>\(\operatorname{sen}x=0\) → \(0,\ \pi\).</li>
+<li>\(\cos x=\frac1{\sqrt2}=\frac{\sqrt2}2\) → I y IV: \(\frac\pi4,\ \frac{7\pi}4\).</li></ol></div>
+<details class="check"><summary>Compruébalo: \(2\cos\theta+1=0\) en \([0,2\pi)\).</summary><p>\(\cos\theta=-\frac12\) → \(\bar\theta=\frac\pi3\), negativo → II y III: \(\frac{2\pi}3,\ \frac{4\pi}3\).</p></details>
+</section>
+
+<!-- ============================ CIERRE ============================ -->
+<section class="lesson" id="l6" style="--acc:var(--c0)" data-mod="m1">
+<header><span class="tag">Cierre</span><h2>El mapa completo</h2></header>
+<p class="lede">Todo el capítulo es una sola historia:</p>
+<ol class="steps">
+<li><b>Triángulo</b> (4.1): las razones op/hip, ady/hip… dependen solo del ángulo. Tabla de 30°, 45°, 60°.</li>
+<li><b>Círculo</b> (4.2): metiendo el triángulo en un círculo de radio 1, \(P=(\cos\theta,\operatorname{sen}\theta)\). Así hay seno y coseno para cualquier ángulo; el cuadrante da el signo y \(\bar\theta\) el valor.</li>
+<li><b>Identidades</b> (4.3): como \(P\) está en el círculo, \(\operatorname{sen}^2+\cos^2=1\). De ahí salen las demás reglas.</li>
+<li><b>Gráficas</b> (4.4): desenrollando el círculo salen las ondas; \(a\), \(d\), \(h\) las estiran y mueven.</li>
+<li><b>Ecuaciones</b> (4.5): el camino inverso; se usan la tabla, los cuadrantes, las identidades y la periodicidad.</li></ol>
+<p>Si algo de este mapa no te queda claro, vuelve a esa lección o pregúntale al tutor.</p>
+</section>
+
+</article></main>
+
+<script>
+const TUTOR = 'https://claude.ai/artifact/BAB6KRoTJNoWq4WfaLu8R7';
+// --- table of contents + per-section tools ---
+const toc = document.getElementById('toc');
+document.querySelectorAll('section.lesson').forEach(sec => {
+  const a = document.createElement('a'); a.className = 'l'; a.href = '#' + sec.id; a.textContent = sec.querySelector('h2').textContent;
+  a.style.color = getComputedStyle(sec).getPropertyValue('--acc'); toc.appendChild(a);
+  sec.querySelectorAll('h3[id]').forEach(h => {
+    const s = document.createElement('a'); s.className = 's'; s.href = '#' + h.id; s.textContent = h.textContent; toc.appendChild(s);
+    const row = document.createElement('div'); row.className = 'tools';
+    const t = document.createElement('a'); t.className = 'pill'; t.href = TUTOR + '#' + sec.dataset.mod; t.target = '_blank'; t.rel = 'noopener'; t.textContent = '💬 Preguntar al tutor';
+    row.appendChild(t);
+    if ('speechSynthesis' in window) {
+      const b = document.createElement('button'); b.className = 'pill'; b.type = 'button'; b.textContent = '🔊 Escuchar';
+      b.onclick = () => listen(h, b); row.appendChild(b);
+    }
+    h.after(row);
+  });
+});
+// --- scroll spy + progress ---
+const links = [...toc.querySelectorAll('a')], targets = links.map(a => document.querySelector(a.getAttribute('href')));
+function spy() {
+  const y = window.scrollY + 120; let k = 0;
+  targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top + window.scrollY <= y) k = i; });
+  links.forEach((a, i) => a.classList.toggle('on', i === k));
+  const h = document.documentElement.scrollHeight - innerHeight; document.getElementById('bar').style.width = (h > 0 ? 100 * scrollY / h : 0) + '%';
+}
+addEventListener('scroll', spy, { passive: true }); spy();
+// --- read aloud (browser voice) ---
+function plain(node) {
+  const c = node.cloneNode(true);
+  c.querySelectorAll('mjx-container').forEach(m => { const a = m.querySelector('mjx-assistive-mml'); m.replaceWith(' ' + (a ? a.textContent : '') + ' '); });
+  c.querySelectorAll('.tools, canvas, input, table, figure').forEach(x => x.remove());
+  return c.textContent;
+}
+function spoken(s) {
+  return s.replace(/θ̄/g, 'theta barra').replace(/θ/g, 'theta').replace(/π/g, ' pi ').replace(/√/g, ' raíz de ').replace(/−/g, ' menos ').replace(/±/g, ' más o menos ')
+    .replace(/\bsen\b/g, 'seno').replace(/\bcos\b/g, 'coseno').replace(/\btan\b/g, 'tangente').replace(/\bcsc\b/g, 'cosecante').replace(/\bsec\b/g, 'secante').replace(/\bcot\b/g, 'cotangente')
+    .replace(/(\w)\s*\/\s*(\w)/g, '$1 sobre $2').replace(/\s+/g, ' ');
+}
+let speakingBtn = null;
+function listen(h, btn) {
+  const synth = speechSynthesis;
+  if (speakingBtn === btn) { synth.cancel(); btn.textContent = '🔊 Escuchar'; speakingBtn = null; return; }
+  synth.cancel(); if (speakingBtn) speakingBtn.textContent = '🔊 Escuchar';
+  let text = h.textContent + '. ', n = h.nextElementSibling;
+  while (n && !/^H[23]$/.test(n.tagName)) { text += plain(n) + ' '; n = n.nextElementSibling; }
+  const parts = spoken(text).match(/[^.!?:]+[.!?:]*/g) || [];
+  const voice = synth.getVoices().find(v => /^es/i.test(v.lang));
+  parts.forEach((p, i) => { const u = new SpeechSynthesisUtterance(p.trim()); u.lang = 'es-ES'; if (voice) u.voice = voice; u.rate = 1;
+    if (i === parts.length - 1) u.onend = () => { if (speakingBtn === btn) { btn.textContent = '🔊 Escuchar'; speakingBtn = null; } }; synth.speak(u); });
+  btn.textContent = '⏹ Detener'; speakingBtn = btn;
+}
+// --- unit circle widget ---
+const NICE = {0:'0',30:'π/6',45:'π/4',60:'π/3',90:'π/2',120:'2π/3',135:'3π/4',150:'5π/6',180:'π',210:'7π/6',225:'5π/4',240:'4π/3',270:'3π/2',300:'5π/3',315:'7π/4',330:'11π/6',360:'2π'};
+const EX = {0:'0',30:'1/2',45:'√2/2',60:'√3/2',90:'1'}, TX = {30:'√3/3',45:'1',60:'√3'};
+function drawUC() {
+  const deg = +ucR.value, th = deg * Math.PI / 180, c = document.getElementById('uc'), g = c.getContext('2d'), W = c.width, R = W * .36, O = W / 2;
+  g.clearRect(0, 0, W, W); g.lineCap = 'round';
+  g.strokeStyle = '#c9c5b9'; g.lineWidth = 2; g.beginPath(); g.moveTo(20, O); g.lineTo(W - 20, O); g.moveTo(O, 20); g.lineTo(O, W - 20); g.stroke();
+  g.fillStyle = '#8a8f9c'; g.font = '24px system-ui'; [['I',1,-1],['II',-1,-1],['III',-1,1],['IV',1,1]].forEach(([s,a,b]) => g.fillText(s, O + a*R*.95 - 12, O + b*R*.95 + 8));
+  g.strokeStyle = '#1f2430'; g.lineWidth = 3; g.beginPath(); g.arc(O, O, R, 0, 2*Math.PI); g.stroke();
+  const x = Math.cos(th), y = Math.sin(th), px = O + R*x, py = O - R*y, q = deg % 360;
+  const ref = q <= 90 ? q : q <= 180 ? 180 - q : q <= 270 ? q - 180 : 360 - q;
+  if (q % 90) { const base = (q < 90 || q > 270) ? 0 : Math.PI; let a1 = -base, a2 = -th; while (a2 < a1 - Math.PI) a2 += 2*Math.PI; while (a2 > a1 + Math.PI) a2 -= 2*Math.PI;
+    g.strokeStyle = '#2f8f4e'; g.lineWidth = 5; g.beginPath(); g.arc(O, O, 80, Math.min(a1,a2), Math.max(a1,a2)); g.stroke(); }
+  g.strokeStyle = '#1d78b8'; g.lineWidth = 8; g.beginPath(); g.moveTo(O, O); g.lineTo(px, O); g.stroke();
+  g.strokeStyle = '#c8641a'; g.lineWidth = 6; g.beginPath(); g.moveTo(px, O); g.lineTo(px, py); g.stroke();
+  g.strokeStyle = '#1f2430'; g.lineWidth = 3; g.beginPath(); g.moveTo(O, O); g.lineTo(px, py); g.stroke();
+  g.fillStyle = '#b08900'; g.beginPath(); g.arc(px, py, 10, 0, 2*Math.PI); g.fill();
+  const sg = v => v < -1e-9 ? '−' : '';
+  const sx = Math.abs(y) < 1e-9 ? '0' : sg(y) + EX[ref], cx = Math.abs(x) < 1e-9 ? '0' : sg(x) + EX[90 - ref];
+  const tn = Math.abs(x) < 1e-9 ? 'no existe (cos = 0)' : Math.abs(y) < 1e-9 ? '0' : sg(y / x) + TX[ref];
+  const quad = q % 90 === 0 ? 'sobre un eje' : 'cuadrante ' + ['I','II','III','IV'][Math.floor(q / 90)];
+  const L = [['θ = ' + deg + '° = ' + NICE[deg], '#b08900'], [quad, '#1f2430'], [q % 90 ? 'ángulo de referencia θ̄ = ' + ref + '° = ' + NICE[ref] : 'ángulo cuadrantal', '#2f8f4e'],
+             ['cos θ = x = ' + cx, '#1d78b8'], ['sen θ = y = ' + sx, '#c8641a'], ['tan θ = ' + tn, '#1f2430']];
+  const T = document.getElementById('ucT'); T.innerHTML = '';
+  L.forEach(([t, col]) => { const d = document.createElement('div'); d.textContent = t; d.style.color = col; d.style.fontSize = '17px'; T.appendChild(d); });
+}
+const ucR = document.getElementById('ucR'); ucR.addEventListener('input', drawUC); drawUC();
+// --- P1 widget ---
+const p1r = document.getElementById('p1r');
+function drawP1() { const d = +p1r.value, t = d * Math.PI / 180, s = Math.sin(t), c = Math.cos(t);
+  document.getElementById('p1d').textContent = d;
+  document.getElementById('p1t').textContent = `sen θ = ${s.toFixed(3)},  cos θ = ${c.toFixed(3)}   →   ${(s*s).toFixed(3)} + ${(c*c).toFixed(3)} = ${(s*s + c*c).toFixed(3)}`; }
+p1r.addEventListener('input', drawP1); drawP1();
+// --- wave widget ---
+function frac(v) { // multiples of pi/6
+  const k = Math.round(v * 6 / Math.PI); if (k === 0) return '0';
+  const g = (a, b) => b ? g(b, a % b) : a, n = Math.abs(k), dd = g(n, 6), num = n / dd, den = 6 / dd;
+  return (k < 0 ? '−' : '') + (num === 1 ? '' : num) + 'π' + (den === 1 ? '' : '/' + den); }
+function drawWave() {
+  const a = +aR.value, d = +dR.value, h = +hR.value * Math.PI / 6, c = document.getElementById('wv'), g = c.getContext('2d'), W = c.width, H = c.height;
+  const xmin = -Math.PI, xmax = 3 * Math.PI, X = x => (x - xmin) / (xmax - xmin) * W, Y = y => H / 2 - y * (H / 2 - 20) / 3.2;
+  g.clearRect(0, 0, W, H); g.strokeStyle = '#d9d5ca'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(W, Y(0)); g.moveTo(X(0), 0); g.lineTo(X(0), H); g.stroke();
+  g.fillStyle = '#8a8f9c'; g.font = '18px system-ui';
+  for (let k = -2; k <= 6; k++) { const x = k * Math.PI / 2; g.fillText(k === 0 ? '' : frac(x), X(x) - 12, Y(0) + 24); }
+  [-3, -2, -1, 1, 2, 3].forEach(v => g.fillText(v, X(0) - 26, Y(v) + 6));
+  const plot = (f, col, w, dash) => { g.strokeStyle = col; g.lineWidth = w; g.setLineDash(dash || []); g.beginPath();
+    for (let i = 0; i <= 600; i++) { const x = xmin + (xmax - xmin) * i / 600; i ? g.lineTo(X(x), Y(f(x))) : g.moveTo(X(x), Y(f(x))); } g.stroke(); g.setLineDash([]); };
+  plot(Math.sin, '#b9b4a6', 2, [6, 6]); plot(x => a * Math.sin(d * (x - h)), '#7a4fc9', 4);
+  const P = 2 * Math.PI / d; g.strokeStyle = '#2f8f4e'; g.lineWidth = 5; g.beginPath(); g.moveTo(X(h), Y(-3)); g.lineTo(X(h + P), Y(-3)); g.stroke();
+  g.fillStyle = '#2f8f4e'; g.fillText('un ciclo: de h a h + P', X(h) + 6, Y(-3) - 8);
+  g.fillStyle = '#b08900'; g.beginPath(); g.arc(X(h), Y(0), 7, 0, 2 * Math.PI); g.fill();
+  aV.textContent = a; dV.textContent = d; pV.textContent = frac(P).replace(/^$/, '0') + (Math.abs(P * 6 / Math.PI - Math.round(P * 6 / Math.PI)) > 1e-6 ? ' ≈ ' + P.toFixed(2) : '');
+  hV.textContent = frac(h) + (h > 0 ? ' (derecha)' : h < 0 ? ' (izquierda)' : '');
+  const inside = h === 0 ? (d === 1 ? 'x' : d + 'x') : `${d === 1 ? '' : d}(x ${h > 0 ? '−' : '+'} ${frac(Math.abs(h))})`;
+  fV.textContent = `y = ${a === 1 ? '' : a} sen ${inside}`; }
+const aR = document.getElementById('aR'), dR = document.getElementById('dR'), hR = document.getElementById('hR');
+const aV = document.getElementById('aV'), dV = document.getElementById('dV'), pV = document.getElementById('pV'), hV = document.getElementById('hV'), fV = document.getElementById('fV');
+[aR, dR, hR].forEach(r => r.addEventListener('input', drawWave)); drawWave();
+</script>
+</body>
+</html>
